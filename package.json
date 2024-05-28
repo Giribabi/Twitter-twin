@@ -1,0 +1,11 @@
+{
+  "name": "twitter-twin",
+  "version": "1.0.0",
+  "description": "This MERN stack projects aims to be similar to twitter (X)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
