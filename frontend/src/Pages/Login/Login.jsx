@@ -18,8 +18,8 @@ function Login() {
         useSignInWithEmailAndPassword(auth);
     const [signInWithMicrosoft, googleUser, googleLoading, googleError] =
         useSignInWithGoogle(auth);
-    if (googleUser) console.log(googleUser);
-    if (googleError) console.log(googleError);
+    // if (googleUser) console.log(googleUser);
+    // if (googleError) console.log(googleError);
     const handleSubmit = (e) => {
         e.preventDefault();
         signInWithEmailAndPassword(email, password);
@@ -38,7 +38,7 @@ function Login() {
                 <img src={AppLogo} alt="login-logo" className="logo-image" />
             </div>
             <div className="form-container">
-                <h1>Happening now</h1>
+                <div className="auth-heading">Happening now</div>
                 <form onSubmit={handleSubmit}>
                     <div className="input-container">
                         <input
@@ -57,19 +57,22 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <div className="submit-button-container">
+                    <div className="input-container">
                         <button type="submit" className="submit-button">
                             Login
                         </button>
                     </div>
                 </form>
-                <div className="google-button">
-                    <GoogleButton
-                        light="light"
-                        onClick={() => {
-                            handleGoogleSignin();
-                        }}
-                    />
+                <hr style={{ color: "white", width: "80%" }} />
+                <div className="input-container">
+                    <div className="google-button">
+                        <GoogleButton
+                            light="light"
+                            onClick={() => {
+                                handleGoogleSignin();
+                            }}
+                        />
+                    </div>
                 </div>
                 <div className="">
                     Don't have an account?
