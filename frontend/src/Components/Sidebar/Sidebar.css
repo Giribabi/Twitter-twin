@@ -1,0 +1,18 @@
+.sidebarOption {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    cursor: pointer;
+}
+.sidebarOption > h2 {
+    font-weight: 600;
+    font-size: 18px;
+    margin-left: 5px;
+}
+.sidebarOption:hover {
+    background-color: #e8f5f3;
+    border-radius: 30px;
+    color: var(--twitter-color);
+    transition: color 100ms ease-out;
+}
