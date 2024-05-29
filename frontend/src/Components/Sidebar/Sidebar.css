@@ -12,7 +12,7 @@
     margin-left: 5px;
 }
 .sidebarOption:hover {
-    background-color: #e7f9fb;
+    background-color: var(--button-bg);
     border-radius: 30px;
     color: var(--twitter-color);
     transition: color 100ms ease-out;

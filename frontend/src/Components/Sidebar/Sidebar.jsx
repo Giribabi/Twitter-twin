@@ -11,6 +11,8 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import MoreIcon from "@mui/icons-material/More";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import StyledLink from "../StyledLink/StyledLink";
+import { Link } from "react-router-dom";
 import {
     Avatar,
     Button,
@@ -34,30 +36,54 @@ function Sidebar({ handleLogout, user }) {
     return (
         <div className="sidebar-container">
             <Logo height={36} width={36} />
-            <SidebarOptions active={false} Icon={HomeIcon} text="Home" />
-            <SidebarOptions active={false} Icon={SearchIcon} text="Explore" />
-            <SidebarOptions
-                active={false}
-                Icon={NotificationsIcon}
-                text="Notifications"
-            />
-            <SidebarOptions
-                active={false}
-                Icon={MailOutlineIcon}
-                text="Messages"
-            />
-            <SidebarOptions
-                active={false}
-                Icon={BookmarkBorderIcon}
-                text="Bookmarks"
-            />
-            <SidebarOptions active={false} Icon={ListAltIcon} text="Lists" />
-            <SidebarOptions
-                active={false}
-                Icon={PermIdentityIcon}
-                text="Profile"
-            />
-            <SidebarOptions active={false} Icon={MoreIcon} text="More" />
+            <StyledLink to="/home/feed">
+                <SidebarOptions active={false} Icon={HomeIcon} text="Home" />
+            </StyledLink>
+            <StyledLink to="/home/explore">
+                <SidebarOptions
+                    active={false}
+                    Icon={SearchIcon}
+                    text="Explore"
+                />
+            </StyledLink>
+            <StyledLink to="/home/notifications">
+                <SidebarOptions
+                    active={false}
+                    Icon={NotificationsIcon}
+                    text="Notifications"
+                />
+            </StyledLink>
+            <StyledLink to="/home/messages">
+                <SidebarOptions
+                    active={false}
+                    Icon={MailOutlineIcon}
+                    text="Messages"
+                />
+            </StyledLink>
+            <StyledLink to="/home/bookmarks">
+                <SidebarOptions
+                    active={false}
+                    Icon={BookmarkBorderIcon}
+                    text="Bookmarks"
+                />
+            </StyledLink>
+            <StyledLink to="/home/lists">
+                <SidebarOptions
+                    active={false}
+                    Icon={ListAltIcon}
+                    text="Lists"
+                />
+            </StyledLink>
+            <StyledLink to="/home/profile">
+                <SidebarOptions
+                    active={false}
+                    Icon={PermIdentityIcon}
+                    text="Profile"
+                />
+            </StyledLink>
+            <StyledLink to="/home/more">
+                <SidebarOptions active={false} Icon={MoreIcon} text="More" />
+            </StyledLink>
             <Button className="sidebar-tweet">Tweet</Button>
             <div className="profile-info">
                 <Avatar />

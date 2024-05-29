@@ -26,6 +26,7 @@ function App() {
                             </ProtectedRoute>
                         }
                     ></Route>
+                    <Route index element={<Feed />}></Route>
                     <Route
                         path="/home"
                         element={
