@@ -1,4 +1,5 @@
 .sidebarOption {
+    padding: 0px 5px;
     display: flex;
     flex-direction: row;
     justify-content: start;
@@ -11,8 +12,60 @@
     margin-left: 5px;
 }
 .sidebarOption:hover {
-    background-color: #e8f5f3;
+    background-color: #e7f9fb;
     border-radius: 30px;
     color: var(--twitter-color);
     transition: color 100ms ease-out;
+}
+.sidebar-container {
+    /* border-right: 1px solid var(--twitter-color); */
+    min-width: 150px;
+    /* margin-top: 20px; */
+    padding-right: 20px;
+    max-height: calc(100vh - 20px);
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+.sidebar-tweet {
+    width: 100%;
+    background-color: var(--twitter-color) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 700 !important;
+    border-radius: 30px !important;
+    height: 35px !important;
+    margin-top: 10px !important;
+}
+.profile-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.user-info {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.user-info > h4 {
+    font-size: 14px;
+    margin: 2px 0px;
+}
+.user-info > h5 {
+    opacity: 50%;
+    margin: 2px 0px;
+}
+/* for tweet button */
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+    text-transform: none !important;
+}
+@media screen and (max-width: 688px) {
+    .sidebar-tweet {
+        display: none;
+    }
+    .sidebar-container {
+        display: none;
+    }
 }

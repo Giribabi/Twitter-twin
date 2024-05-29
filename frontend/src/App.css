@@ -1,6 +1,8 @@
 body {
     --twitter-color: #50b7f5;
     --twitter-background: #e6ecf0;
+    --page-width: 74vw;
+    /* --header-height: 0vw; */
 }
 .app {
     display: flex;
