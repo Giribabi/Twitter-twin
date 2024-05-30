@@ -28,7 +28,7 @@
     align-items: center;
 }
 .tweetBox-tweetButton {
-    background-color: var(--twitter-background) !important;
+    background-color: var(--twitter-color) !important;
     border: none !important;
     color: white !important;
     font-weight: 700 !important;

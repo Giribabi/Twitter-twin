@@ -12,9 +12,9 @@ function TweetBox() {
         console.log(post);
     };
     return (
-        <div>
+        <div className="tweetBox">
             <form onSubmit={handleTweet}>
-                <div className="tweetbox-input">
+                <div className="tweetBox-input">
                     <Avatar />
                     <input
                         type="text"
@@ -24,10 +24,10 @@ function TweetBox() {
                 </div>
                 <div className="imageIcon-tweetButton">
                     <label htmlFor="image" className="imageIcon">
-                        <AddPhotoAlternateIconOutlined></AddPhotoAlternateIconOutlined>
+                        <AddPhotoAlternateIconOutlined />
                     </label>
                     <input type="file" id="image" className="image-input" />
-                    <Button className="tweetbox-tweetButton" type="submit">
+                    <Button className="tweetBox-tweetButton" type="submit">
                         Tweet
                     </Button>
                 </div>
