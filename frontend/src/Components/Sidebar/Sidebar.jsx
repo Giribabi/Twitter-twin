@@ -24,8 +24,16 @@ import {
     MenuItem,
 } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
+import useLoggedinUser from "../../hooks/useLoggedinUser";
 
 function Sidebar({ handleLogout, user }) {
+    const [loggedinUser] = useLoggedinUser();
+    // console.log(loggedinUser);
+
+    const fullName = loggedinUser[0]?.name || "Guest User";
+    const username = loggedinUser[0]?.username || "Guest User";
+    const userProfilePic = loggedinUser[0]?.profileImage || "";
+
     const [openMenu, setOpenMenu] = useState(false);
     const handleClick = () => {
         setOpenMenu(true);
@@ -86,10 +94,10 @@ function Sidebar({ handleLogout, user }) {
             </StyledLink>
             <Button className="sidebar-tweet">Tweet</Button>
             <div className="profile-info">
-                <Avatar />
+                <Avatar src={userProfilePic} />
                 <div className="user-info">
-                    <h4>Giridhar</h4>
-                    <h5>@giribabi</h5>
+                    <h4>{fullName}</h4>
+                    <h5>@{username}</h5>
                 </div>
                 <IconButton
                     size="small"
@@ -111,8 +119,8 @@ function Sidebar({ handleLogout, user }) {
                         <Avatar />
                         <div className="user-info subUser-info">
                             <div className="">
-                                <h4>Sammidi Giridhar</h4>
-                                <h5>@giribabi</h5>
+                                <h4>{fullName}</h4>
+                                <h5>@{username}</h5>
                             </div>
                             <ListItemIcon className="done_icon">
                                 <DoneIcon />

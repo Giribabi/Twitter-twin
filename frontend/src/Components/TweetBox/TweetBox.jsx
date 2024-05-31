@@ -5,8 +5,18 @@ import axios from "axios";
 import AlertMessage from "../AlertMessage/AlertMessage";
 import AddPhotoAlternateIconOutlined from "@mui/icons-material/AddPhotoAlternateOutlined";
 import "./TweetBox.css";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
+import useLoggedinUser from "../../hooks/useLoggedinUser";
 
 function TweetBox() {
+    const user = useAuthState(auth);
+    const [loggedinUser] = useLoggedinUser();
+    // console.log(loggedinUser);
+    const userProfilePic = loggedinUser[0]?.profileImage
+        ? loggedinUser[0].profileImage
+        : "";
+
     const [post, setPost] = useState("");
     const [imageURL, setImageURL] = useState("");
     const [loading, setLoading] = useState(false);
@@ -19,7 +29,7 @@ function TweetBox() {
             post: post,
             photo: imageURL,
         };
-        console.log(userPost);
+        // console.log(userPost);
 
         fetch("http://localhost:3030/post", {
             method: "POST",

@@ -9,6 +9,7 @@ import GoogleButton from "react-google-button";
 import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import LoadingPage from "../LoadingPage";
+import axios from "axios";
 
 function Signup() {
     const [fullName, setFullName] = useState("");
@@ -28,6 +29,14 @@ function Signup() {
     const handleSubmit = (e) => {
         e.preventDefault();
         createUserWithEmailAndPassword(email, password);
+
+        const user = {
+            username: username,
+            name: fullName,
+            email: email,
+        };
+
+        axios.post("http://localhost:3030/register", user);
     };
 
     const handleGoogleSignin = () => {

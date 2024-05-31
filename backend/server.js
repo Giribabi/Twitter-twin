@@ -33,10 +33,28 @@ async function run() {
             res.send(post);
         });
 
+        app.get("/user", async (req, res) => {
+            const user = await usersCollection.find().toArray();
+            res.send(user);
+        });
+
+        app.get("/loggedUser", async (req, res) => {
+            const email = req.query.email;
+            const user = await usersCollection.find({ email: email }).toArray();
+            res.send(user);
+        });
+
         //post
         app.post("/post", async (req, res) => {
             const post = req.body;
             const result = await postsCollection.insertOne(post);
+            res.send(result);
+        });
+
+        //register user
+        app.post("/register", async (req, res) => {
+            const user = req.body;
+            const result = await usersCollection.insertOne(user);
             res.send(result);
         });
     } catch (error) {
