@@ -22,11 +22,25 @@ async function run() {
     try {
         // Connect the client to the server
         await client.connect();
-        await client.db("admin").command({ ping: 1 });
+        const postsCollection = client.db("database").collection("posts");
+        const usersCollection = client.db("database").collection("users");
+
         console.log("You successfully connected to MongoDB!");
-    } finally {
-        // Ensures that the client will close when you finish/error
-        await client.close();
+
+        //get
+        app.get("/post", async (req, res) => {
+            const post = await postsCollection.find().toArray();
+            res.send(post);
+        });
+
+        //post
+        app.post("/post", async (req, res) => {
+            const post = req.body;
+            const result = await postsCollection.insertOne(post);
+            res.send(result);
+        });
+    } catch (error) {
+        console.log(error);
     }
 }
 run().catch(console.dir);
