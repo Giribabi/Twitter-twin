@@ -10,13 +10,17 @@ import auth from "../../firebase.init";
 import useLoggedinUser from "../../hooks/useLoggedinUser";
 
 function TweetBox() {
-    const user = useAuthState(auth);
+    const [user] = useAuthState(auth);
     const [loggedinUser] = useLoggedinUser();
     // console.log(loggedinUser);
     const userProfilePic = loggedinUser[0]?.profileImage
         ? loggedinUser[0].profileImage
         : "";
 
+    const email = user.providerData[0].email;
+    // console.log(email);
+    const [fullname, setFullname] = useState("");
+    const [username, setUsername] = useState("");
     const [post, setPost] = useState("");
     const [imageURL, setImageURL] = useState("");
     const [loading, setLoading] = useState(false);
@@ -25,7 +29,26 @@ function TweetBox() {
     const [imageUploadFailed, setImageUploadFailed] = useState(false);
     const handleTweet = (e) => {
         e.preventDefault();
+        // console.log(user.providerData[0].providerId);
+        if (user.providerData[0].providerId === "password") {
+            // User authenticated using email and password.
+            fetch(`http://localhost:3030/loggedUser?email=${email}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    // console.log(data);
+                    setFullname(data[0]?.name);
+                    setUsername(data[0]?.username);
+                });
+        } else {
+            // User authenticated using a different provider.
+            setFullname(user?.displayName);
+            setUsername(email);
+        }
         const userPost = {
+            profilePhoto: userProfilePic,
+            username: username,
+            fullname: fullname,
+            email: email,
             post: post,
             photo: imageURL,
         };
@@ -40,7 +63,7 @@ function TweetBox() {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
+                // console.log(data);
             });
     };
 
