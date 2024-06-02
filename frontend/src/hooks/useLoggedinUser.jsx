@@ -14,7 +14,8 @@ const useLoggedinUser = () => {
             .then((data) => {
                 // console.log(data);
                 setLoggedinUser(data);
-            });
+            })
+            .catch((error) => console.log(error));
     }, [email]);
     return [loggedinUser, setLoggedinUser];
 };

@@ -3,6 +3,8 @@ import "../Pages.css";
 import TweetBox from "../../Components/TweetBox/TweetBox";
 import axios from "axios";
 import Post from "../../Components/Post/Post";
+import ReactLoading from "react-loading";
+import "../Pages.css";
 
 function Feed() {
     const [sendingTweet, setSendingTweet] = useState(false);
@@ -12,7 +14,8 @@ function Feed() {
         setSendingTweet(true);
         fetch("http://localhost:3030/post")
             .then((res) => res.json())
-            .then((data) => setPosts(data));
+            .then((data) => setPosts(data))
+            .catch((error) => console.log(error));
         setSendingTweet(false);
     }, [posts]);
     return (
@@ -22,12 +25,23 @@ function Feed() {
                 setSendingTweet={setSendingTweet}
             />
             <div className="posts-container">
-                {posts &&
-                    posts.map((currPost) => (
-                        <div className="single-post" key={currPost._id}>
-                            <Post currPost={currPost} />
-                        </div>
-                    ))}
+                {sendingTweet ? (
+                    <ReactLoading
+                        type={"bubbles"}
+                        color={"#50b7f5"}
+                        height={65}
+                        width={80}
+                    />
+                ) : (
+                    <>
+                        {posts &&
+                            posts.map((currPost) => (
+                                <div className="single-post" key={currPost._id}>
+                                    <Post currPost={currPost} />
+                                </div>
+                            ))}
+                    </>
+                )}
             </div>
         </div>
     );

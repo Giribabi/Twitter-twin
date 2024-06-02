@@ -21,6 +21,9 @@
 .username {
     color: rgb(55, 55, 55);
 }
+.post-header-body {
+    padding: 5px;
+}
 .post-header-badge {
     display: flex;
     flex-direction: row;

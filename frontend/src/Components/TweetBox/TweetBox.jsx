@@ -34,7 +34,8 @@ function TweetBox({ sendingTweet, setSendingTweet }) {
                 .then((data) => {
                     setFullname(data[0]?.name || "");
                     setUsername(data[0]?.username || "");
-                });
+                })
+                .catch((error) => console.log(error));
         } else {
             setFullname(user?.displayName || "");
             setUsername(email);
@@ -65,7 +66,8 @@ function TweetBox({ sendingTweet, setSendingTweet }) {
             .then((res) => res.json())
             .then((data) => {
                 // console.log(data);
-            });
+            })
+            .catch((error) => console.log(error));
         setPost("");
         setImageURL("");
 

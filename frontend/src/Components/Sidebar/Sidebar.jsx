@@ -117,8 +117,8 @@ function Sidebar({ handleLogout, user }) {
                 >
                     <MenuItem className="profile-info1">
                         <Avatar />
-                        <div className="user-info subUser-info">
-                            <div className="">
+                        <div className="user-info ">
+                            <div className="user-details">
                                 <h4>{fullName}</h4>
                                 <h5>@{username}</h5>
                             </div>
