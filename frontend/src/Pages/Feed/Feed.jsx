@@ -5,6 +5,7 @@ import axios from "axios";
 import Post from "../../Components/Post/Post";
 import ReactLoading from "react-loading";
 import "../Pages.css";
+import { Divider, Typography } from "@mui/material";
 
 function Feed() {
     const [sendingTweet, setSendingTweet] = useState(false);
@@ -19,29 +20,41 @@ function Feed() {
         setSendingTweet(false);
     }, [posts]);
     return (
-        <div>
+        <div className="feed-container">
             <TweetBox
                 sendingTweet={sendingTweet}
                 setSendingTweet={setSendingTweet}
             />
-            <div className="posts-container">
-                {sendingTweet ? (
-                    <ReactLoading
-                        type={"bubbles"}
-                        color={"#50b7f5"}
-                        height={65}
-                        width={80}
-                    />
-                ) : (
-                    <>
-                        {posts &&
-                            posts.map((currPost) => (
-                                <div className="single-post" key={currPost._id}>
-                                    <Post currPost={currPost} />
+            <div className="posts">
+                <div className="posts-container">
+                    {sendingTweet ? (
+                        <ReactLoading
+                            type={"bubbles"}
+                            color={"#50b7f5"}
+                            height={65}
+                            width={80}
+                        />
+                    ) : (
+                        <>
+                            {posts &&
+                                posts.map((currPost) => (
+                                    <>
+                                        <div
+                                            className="single-post"
+                                            key={currPost._id}
+                                        >
+                                            <Post currPost={currPost} />
+                                        </div>
+                                    </>
+                                ))}
+                            {posts && posts.length === 0 && (
+                                <div className="no-posts-container">
+                                    <Typography>No posts yet</Typography>
                                 </div>
-                            ))}
-                    </>
-                )}
+                            )}
+                        </>
+                    )}
+                </div>
             </div>
         </div>
     );

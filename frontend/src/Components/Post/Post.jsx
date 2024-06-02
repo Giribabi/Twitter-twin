@@ -10,7 +10,6 @@ import "./Post.css";
 
 function Post({ currPost }) {
     const { fullname, username, profilePhoto, photo, post } = currPost;
-    // console.log(currPost);
 
     return (
         <>
@@ -46,10 +45,22 @@ function Post({ currPost }) {
                         </div>
                     )}
                     <div className="post-footer">
-                        <ChatBubbleOutlineIcon fontSize="small" />
-                        <RepeatIcon fontSize="small" />
-                        <FavoriteBorderIcon fontSize="small" />
-                        <PublishIcon fontSize="small" />
+                        <ChatBubbleOutlineIcon
+                            className="reaction-icons"
+                            fontSize="small"
+                        />
+                        <RepeatIcon
+                            className="reaction-icons"
+                            fontSize="small"
+                        />
+                        <FavoriteBorderIcon
+                            className="reaction-icons"
+                            fontSize="small"
+                        />
+                        <PublishIcon
+                            className="reaction-icons"
+                            fontSize="small"
+                        />
                     </div>
                 </div>
             </div>
