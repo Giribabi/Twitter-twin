@@ -18,7 +18,7 @@ function Feed() {
             .then((data) => setPosts(data))
             .catch((error) => console.log(error));
         setSendingTweet(false);
-    }, [posts]);
+    }, [posts.length]);
     return (
         <div className="feed-container">
             <TweetBox

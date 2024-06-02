@@ -1,7 +1,7 @@
 .tweetBox {
     width: 100%;
     padding-bottom: 10px;
-    box-shadow: 0 3px 8px 0 var(--twitter-background);
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.2);
     margin-top: 3px;
 }
 .loading-box {
@@ -44,6 +44,7 @@
     border-radius: 50px !important;
     width: 100px;
     height: 40px !important;
+    margin-right: 20px !important;
 }
 .imageIcon {
     color: var(--twitter-color);
