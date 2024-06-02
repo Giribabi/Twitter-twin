@@ -1,0 +1,36 @@
+.widgets {
+    margin: 5px;
+    padding: 3px;
+}
+.widget-search-input {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 3px 1px;
+    margin: 2px 1px;
+}
+.search-icon {
+    font-size: 34px !important;
+    color: rgb(130, 129, 129);
+    position: relative;
+    right: 40px;
+    cursor: pointer;
+}
+.search-bar {
+    width: calc(100% + 40px);
+    padding: 10px;
+    padding-right: 40px;
+    border-radius: 15px;
+    background-color: var(--twitter-background);
+    border: none;
+}
+.widget-header {
+    max-height: 120px;
+}
+.widgets-list {
+    padding: 3px;
+    max-height: calc(100vh - 145px);
+    overflow-y: scroll;
+    scrollbar-width: none;
+    margin: 3px;
+}

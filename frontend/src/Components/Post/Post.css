@@ -1,6 +1,7 @@
 .post {
     margin: 8px 5px;
     width: calc(100% - 26px);
+    /* width: 100%; */
     overflow: hidden;
     padding: 8px;
     border: 1px solid lightgray;
