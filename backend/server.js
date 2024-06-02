@@ -29,7 +29,7 @@ async function run() {
 
         //get
         app.get("/post", async (req, res) => {
-            const post = await postsCollection.find().toArray();
+            const post = (await postsCollection.find().toArray()).reverse();
             res.send(post);
         });
 

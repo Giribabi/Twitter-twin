@@ -1,6 +1,13 @@
 .tweetBox {
     padding-bottom: 10px;
     border-bottom: 3px solid var(--twitter-background);
+    margin-top: 20px;
+}
+.loading-box {
+    min-height: 130px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .tweetBox > form {
     display: flex;
