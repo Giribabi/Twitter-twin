@@ -3,28 +3,108 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    gap: 5px;
-    box-shadow: 0 9px 11px -10px rgba(0, 0, 0, 0.2);
+    gap: 8px;
+    box-shadow: 0 6px 6px -6px rgba(0, 0, 0, 0.2);
 }
-.cover-image,
 .profile-image {
-    width: 20vw !important;
-    height: 20vw !important;
-    margin: 2px;
+    width: 10vw !important;
+    height: 10vw !important;
+    border: 5px solid white;
 }
-.cover-image-container,
 .profile-image-container {
+    position: relative;
+    bottom: calc(36px + 6vw);
+    left: 15px;
+}
+.fullname {
     display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.user-credentials {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    color: black;
+}
+.fullname > h3 {
+    margin-block-start: 0px;
+    margin-block-end: 0px !important;
+}
+.user-credentials > h5 {
+    margin-block-start: 2px;
+}
+.user-posts-container {
+    position: relative;
+    bottom: calc(36px + 6vw);
+}
+.profile-image:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+.cover-image {
+    width: 100%;
+    height: 12vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgrey;
+}
+.camera-icon {
+    color: white !important;
+    font-size: 7vw !important;
+}
+.focus-icon {
+    color: white !important;
+    font-size: 28px !important;
+    padding: 3px;
+    cursor: pointer;
+}
+.image-upload-icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    position: relative;
+    bottom: 12vw;
+}
+.profile-body {
+    max-height: calc(100vh - 75px);
+    overflow-y: scroll;
+    scrollbar-width: none;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+.posts-heading-container {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    border-bottom: 1px solid lightgray;
+}
+.posts-heading {
+    text-align: center;
+    display: inline-flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 3px;
+    font-size: larger;
+    font-weight: bold;
+    padding: 4px;
+    cursor: pointer;
 }
-.profile-body {
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+.highlight {
+    padding: 3px;
+    width: 20vw;
+    border-radius: 10px;
+    background-color: var(--twitter-color);
+    position: relative;
+    top: 4px;
 }
+@media (max-width: 800px) {
+}
+
 @media (max-width: 450px) {
-    .cover-image,
     .profile-image {
         width: 30vw !important;
         height: 30vw !important;

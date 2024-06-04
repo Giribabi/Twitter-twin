@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import "./View.css";
+import CenterFocusWeakIcon from "@mui/icons-material/CenterFocusWeak";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AddLinkIcon from "@mui/icons-material/AddLink";
+import VerifiedIcon from "@mui/icons-material/Verified";
 import { useNavigate } from "react-router-dom";
-import { Avatar } from "@mui/material";
+import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
+import { Avatar, Divider, Typography } from "@mui/material";
 import Post from "../../../Components/Post/Post";
-
+{
+    /* ?? is nullish coalescing operator better than || as "??" prevents rendering user[0].bio if it is null or empty string */
+}
 function View({ user }) {
     const navigate = useNavigate();
     const username = user[0]?.username;
@@ -42,19 +47,20 @@ function View({ user }) {
                     {
                         <div className="">
                             <div className="cover-image-container">
-                                <input
-                                    type="file"
-                                    id="cover-image-upload"
-                                    style={{ display: "none" }}
-                                    onChange={handleCoverImageUpload}
-                                />
-                                <label htmlFor="cover-image-upload">
-                                    <Avatar
-                                        src=""
-                                        alt="cover-image"
-                                        className="cover-image"
+                                <div className="cover-image">
+                                    <CameraAltOutlinedIcon className="camera-icon" />
+                                </div>
+                                <div className="image-upload-icon">
+                                    <input
+                                        type="file"
+                                        id="cover-image-upload"
+                                        style={{ display: "none" }}
+                                        onChange={handleCoverImageUpload}
                                     />
-                                </label>
+                                    <label htmlFor="cover-image-upload">
+                                        <CenterFocusWeakIcon className="focus-icon" />
+                                    </label>
+                                </div>
                             </div>
                             <div className="profile-image-container">
                                 <input
@@ -70,33 +76,77 @@ function View({ user }) {
                                         className="profile-image"
                                     />
                                 </label>
+                                <div className="user-credentials">
+                                    <div className="fullname">
+                                        <h3>{fullname}</h3>
+                                        <VerifiedIcon
+                                            style={{
+                                                color: "var(--twitter-color)",
+                                            }}
+                                        />
+                                    </div>
+                                    <h5 className="post-header-badge">
+                                        <div className="username">
+                                            @{username}
+                                        </div>
+                                    </h5>
+                                </div>
                             </div>
-                            <div className="user-details">
-                                <h2 className="fullname">{fullname}</h2>
-                                <p className="username">@{username}</p>
-                                <div className="info">
-                                    {/* ?? is nullish coalescing operator better than || as "??" prevents rendering user[0].bio if it is null or empty string */}
-                                    {user[0]?.bio ??
-                                        "No information provided yet."}
+                            {/* <div className="user-details">
+                                <div className="text-info">
+                                    <div className="details">
+                                        <Typography
+                                            style={{ fontSize: "18px" }}
+                                        >
+                                            <strong>Full name: </strong>
+                                            {fullname}
+                                            <br />
+                                            <strong>Username: </strong>
+                                            <span
+                                                style={{
+                                                    color: "var(--twitter-color)",
+                                                }}
+                                            >
+                                                @
+                                            </span>
+                                            {username}
+                                        </Typography>
+                                    </div>
+                                    <div className="info">
+                                        <Typography
+                                            style={{ fontSize: "18px" }}
+                                        >
+                                            <strong>About: </strong>
+                                            {user[0]?.bio ??
+                                                "No information provided yet."}
+                                        </Typography>
+                                    </div>
                                 </div>
-                                <div className="location-info">
-                                    <LocationOnIcon />:
-                                    {user[0]?.location ? (
-                                        <p>user[0]?.location</p>
-                                    ) : (
-                                        "No information provided yet."
-                                    )}
+                                <div className="other-profile-info">
+                                    <div className="location-info">
+                                        <LocationOnIcon />:
+                                        {user[0]?.location ? (
+                                            <p> user[0]?.location</p>
+                                        ) : (
+                                            " No information provided yet."
+                                        )}
+                                    </div>
+                                    <div className="website-info">
+                                        <AddLinkIcon />:
+                                        {user[0]?.wesbite ? (
+                                            <p> user[0]?.wesbite</p>
+                                        ) : (
+                                            " No information provided yet."
+                                        )}
+                                    </div>
                                 </div>
-                                <div className="website-info">
-                                    <AddLinkIcon />:
-                                    {user[0]?.wesbite ? (
-                                        <p>user[0]?.wesbite</p>
-                                    ) : (
-                                        "No information provided yet."
-                                    )}
+                            </div> */}
+                            <div className="user-posts-container">
+                                <div className="posts-heading-container">
+                                    <div className="posts-heading">
+                                        Posts<div className="highlight"></div>
+                                    </div>
                                 </div>
-                                <h4>Tweets</h4>
-                                <hr />
                                 <div className="my-tweets">
                                     {posts &&
                                         posts.map((currPost) => (
