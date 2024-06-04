@@ -1,7 +1,7 @@
 .tweetBox {
     width: 100%;
     padding-bottom: 10px;
-    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 9px 11px -10px rgba(0, 0, 0, 0.2);
     margin-top: 3px;
 }
 .loading-box {

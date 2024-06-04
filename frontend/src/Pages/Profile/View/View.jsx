@@ -30,11 +30,13 @@ function View({ user }) {
     };
     return (
         <div className="view-profile">
-            <ArrowBackIcon
-                className="arrow-icon"
-                onClick={() => navigate("/")}
-            />
-            <h2>{"@" + username}</h2>
+            <div className="profile-heading">
+                <ArrowBackIcon
+                    className="arrow-icon"
+                    onClick={() => navigate("/")}
+                />
+                <h2>{"@" + username}</h2>
+            </div>
             <div className="profile-body">
                 <div className="profile-bio">
                     {

@@ -23,9 +23,7 @@
     height: calc(100vh - 155px);
     overflow-y: scroll;
     scrollbar-width: none;
-    border-right: 1px solid lightgrey;
-    border-left: 1px solid lightgrey;
-    box-shadow: 0 5px 9px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 .single-post {
     width: 100%;

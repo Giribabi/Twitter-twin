@@ -14,12 +14,12 @@ function Post({ currPost }) {
     return (
         <>
             <div className="post">
+                <div className="post-avatar">
+                    <Avatar src={profilePhoto} />
+                </div>
                 <div className="post-body">
                     <div className="post-header">
                         <div className="post-heading">
-                            <div className="post-avatar">
-                                <Avatar src={profilePhoto} />
-                            </div>
                             <h3>{fullname}</h3>
                             <h5 className="post-header-badge">
                                 <VerifiedIcon

@@ -3,8 +3,16 @@
     width: 100%;
     overflow: hidden;
     padding: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 7px;
     border-bottom: 1px solid lightgrey;
     box-sizing: border-box;
+}
+.post-body {
+    width: 100%;
 }
 .post-heading {
     width: 100%;
@@ -16,6 +24,10 @@
 }
 .post-heading > h5 {
     margin-left: 5px;
+    margin-block-start: 3px;
+}
+.post-heading > h3 {
+    margin-block-start: 0px;
 }
 .username {
     color: rgb(55, 55, 55);
@@ -37,14 +49,17 @@
 }
 .post-image {
     width: calc(100% - 6px);
+    border-radius: 5px;
+    object-fit: contain;
 }
 .post-footer {
+    width: calc(100% - 10px);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     gap: 3px;
-    margin: 5px 2px;
+    margin: 5px;
 }
 .reaction-icons {
     cursor: pointer;

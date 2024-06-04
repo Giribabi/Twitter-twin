@@ -1,3 +1,11 @@
+.profile-heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 9px 11px -10px rgba(0, 0, 0, 0.2);
+}
 .cover-image,
 .profile-image {
     width: 20vw !important;
@@ -11,6 +19,9 @@
     justify-content: center;
     align-items: center;
     margin: 3px;
+}
+.profile-body {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 @media (max-width: 450px) {
     .cover-image,
