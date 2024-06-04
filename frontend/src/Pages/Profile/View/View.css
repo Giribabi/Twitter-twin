@@ -1,0 +1,21 @@
+.cover-image,
+.profile-image {
+    width: 20vw !important;
+    height: 20vw !important;
+    margin: 2px;
+}
+.cover-image-container,
+.profile-image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 3px;
+}
+@media (max-width: 450px) {
+    .cover-image,
+    .profile-image {
+        width: 30vw !important;
+        height: 30vw !important;
+    }
+}
