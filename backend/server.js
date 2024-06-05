@@ -44,6 +44,14 @@ async function run() {
             res.send(user);
         });
 
+        app.get("/myPosts", async (req, res) => {
+            const email = req.query.email;
+            const post = (
+                await postsCollection.find({ email: email }).toArray()
+            ).reverse();
+            res.send(post);
+        });
+
         //post
         app.post("/post", async (req, res) => {
             const post = req.body;

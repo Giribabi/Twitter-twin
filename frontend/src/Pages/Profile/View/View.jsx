@@ -7,7 +7,7 @@ import AddLinkIcon from "@mui/icons-material/AddLink";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import { useNavigate } from "react-router-dom";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
-import { Avatar, Divider, Typography } from "@mui/material";
+import { Avatar, containerClasses, Divider, Typography } from "@mui/material";
 import Post from "../../../Components/Post/Post";
 import ReactLoading from "react-loading";
 import axios from "axios";
@@ -19,18 +19,33 @@ function View({ user }) {
     const username = user[0]?.username;
     const fullname = user[0]?.name;
     const [loading, setLoading] = useState(false);
-    const [coverImageURL, setCoverImageURL] = useState("");
-    const [profileImageURL, setProfileImageURL] = useState("");
-    // add user pic url to Avatar
+    const [postsLoading, setPostsLoading] = useState(false);
 
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3030/post")
-            .then((res) => res.json())
-            .then((data) => setPosts(data))
-            .catch((error) => console.log(error));
-    }, [posts.length]);
+        const fetchData = async () => {
+            setPostsLoading(true);
+            try {
+                const response = await fetch(
+                    `http://localhost:3030/myPosts?email=${user[0]?.email}`
+                );
+                // if (!response.ok) {
+                //     throw new Error("Network response was not ok");
+                // }
+                const data = await response.json();
+                setPosts(data);
+            } catch (error) {
+                console.log("Fetch error:", error);
+            } finally {
+                setPostsLoading(false);
+            }
+        };
+
+        if (user[0]?.email) {
+            fetchData();
+        }
+    }, [user, posts.length]);
 
     const handleCoverImageUpload = async (e) => {
         setLoading(true);
@@ -64,7 +79,6 @@ function View({ user }) {
                         `http://localhost:3030/profile/update/${user[0]?.email}`,
                         userCoverImage
                     );
-                    setCoverImageURL(url);
                 } catch (updateError) {
                     console.error("Error updating user profile:", updateError);
                 }
@@ -106,7 +120,6 @@ function View({ user }) {
                         `http://localhost:3030/profile/update/${user[0]?.email}`,
                         userProfileImage
                     );
-                    setProfileImageURL(url);
                 } catch (updateError) {
                     console.error("Error updating user profile:", updateError);
                 }
@@ -258,26 +271,40 @@ function View({ user }) {
                                         Posts<div className="highlight"></div>
                                     </div>
                                 </div>
-                                <div className="my-tweets">
-                                    {posts &&
-                                        posts.map((currPost) => (
-                                            <>
-                                                <div
-                                                    className="single-post"
-                                                    key={currPost._id}
-                                                >
-                                                    <Post currPost={currPost} />
-                                                </div>
-                                            </>
-                                        ))}
-                                    {posts && posts.length === 0 && (
-                                        <div className="no-posts">
-                                            <Typography>
-                                                No posts yet.
-                                            </Typography>
-                                        </div>
-                                    )}
-                                </div>
+
+                                {postsLoading ? (
+                                    <div className="loading-container">
+                                        <ReactLoading
+                                            type={"spinningBubbles"}
+                                            color={"#50b7f5"}
+                                            height={60}
+                                            width={60}
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className="my-tweets">
+                                        {posts &&
+                                            posts.map((currPost) => (
+                                                <>
+                                                    <div
+                                                        className="single-post"
+                                                        key={currPost._id}
+                                                    >
+                                                        <Post
+                                                            currPost={currPost}
+                                                        />
+                                                    </div>
+                                                </>
+                                            ))}
+                                        {posts && posts.length === 0 && (
+                                            <div className="no-posts">
+                                                <Typography>
+                                                    No posts yet.
+                                                </Typography>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     }
