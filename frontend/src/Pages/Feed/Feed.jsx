@@ -49,7 +49,7 @@ function Feed() {
                                 ))}
                             {posts && posts.length === 0 && (
                                 <div className="no-posts-container">
-                                    <Typography>No posts yet</Typography>
+                                    <Typography>No posts yet.</Typography>
                                 </div>
                             )}
                         </>

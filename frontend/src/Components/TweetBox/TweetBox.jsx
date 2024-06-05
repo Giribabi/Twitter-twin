@@ -76,7 +76,7 @@ function TweetBox({ sendingTweet, setSendingTweet }) {
     };
 
     const handleImageUpload = (e) => {
-        console.log("entered");
+        // console.log("entered");
         setLoading(true);
         const image = e.target.files[0];
         if (image) {

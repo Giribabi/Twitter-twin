@@ -9,13 +9,18 @@ import { useNavigate } from "react-router-dom";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 import { Avatar, Divider, Typography } from "@mui/material";
 import Post from "../../../Components/Post/Post";
-{
-    /* ?? is nullish coalescing operator better than || as "??" prevents rendering user[0].bio if it is null or empty string */
-}
+import ReactLoading from "react-loading";
+import axios from "axios";
+
+/* ?? is nullish coalescing operator better than || as "??" prevents rendering user[0].bio if it is null or empty string */
+
 function View({ user }) {
     const navigate = useNavigate();
     const username = user[0]?.username;
     const fullname = user[0]?.name;
+    const [loading, setLoading] = useState(false);
+    const [imageURL, setImageURL] = useState("");
+    const [profileImageURL, setProfileImageURL] = useState("");
     // add user pic url to Avatar
 
     const [posts, setPosts] = useState([]);
@@ -26,12 +31,61 @@ function View({ user }) {
             .then((data) => setPosts(data))
             .catch((error) => console.log(error));
     }, [posts.length]);
+
     const handleCoverImageUpload = (e) => {
-        console.log(e.target.files[0]);
+        setLoading(true);
+        console.log("entered");
+        const image = e.target.files[0];
+        if (image) {
+            const formData = new FormData();
+            formData.set("image", image);
+
+            axios
+                .post(
+                    "https://api.imgbb.com/1/upload?key=2ff8b34d7b55a2c85194c0e00b865b71",
+                    formData
+                )
+                .then((res) => {
+                    const url = res.data.data.display_url;
+                    // console.log(url);
+                    setImageURL(url);
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    console.error("Error uploading image:", error);
+                });
+        } else {
+            // console.log("No image selected");
+        }
+        setLoading(false);
     };
 
     const handleProfileImageUpload = (e) => {
-        console.log(e.target.files[0]);
+        setLoading(true);
+        console.log("entered");
+        const image = e.target.files[0];
+        if (image) {
+            const formData = new FormData();
+            formData.set("image", image);
+
+            axios
+                .post(
+                    "https://api.imgbb.com/1/upload?key=2ff8b34d7b55a2c85194c0e00b865b71",
+                    formData
+                )
+                .then((res) => {
+                    const url = res.data.data.display_url;
+                    // console.log(url);
+                    setProfileImageURL(url);
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    console.error("Error uploading image:", error);
+                });
+        } else {
+            // console.log("No image selected");
+        }
+        setLoading(false);
     };
     return (
         <div className="view-profile">
@@ -40,7 +94,7 @@ function View({ user }) {
                     className="arrow-icon"
                     onClick={() => navigate("/")}
                 />
-                <h2>{"@" + username}</h2>
+                <h2>{username ? "@" + username : "not available"}</h2>
             </div>
             <div className="profile-body">
                 <div className="profile-bio">
@@ -57,9 +111,19 @@ function View({ user }) {
                                         style={{ display: "none" }}
                                         onChange={handleCoverImageUpload}
                                     />
-                                    <label htmlFor="cover-image-upload">
-                                        <CenterFocusWeakIcon className="focus-icon" />
-                                    </label>
+                                    {!loading && (
+                                        <label htmlFor="cover-image-upload">
+                                            <CenterFocusWeakIcon className="focus-icon" />
+                                        </label>
+                                    )}
+                                    {loading && (
+                                        <ReactLoading
+                                            type={"bubbles"}
+                                            color={"#50b7f5"}
+                                            height={75}
+                                            width={75}
+                                        />
+                                    )}
                                 </div>
                             </div>
                             <div className="profile-image-container">
@@ -78,16 +142,21 @@ function View({ user }) {
                                 </label>
                                 <div className="user-credentials">
                                     <div className="fullname">
-                                        <h3>{fullname}</h3>
+                                        <h3>{fullname ?? "not available"}</h3>
                                         <VerifiedIcon
                                             style={{
+                                                display:
+                                                    !fullname ||
+                                                    fullname.length === 0
+                                                        ? "none"
+                                                        : "block",
                                                 color: "var(--twitter-color)",
                                             }}
                                         />
                                     </div>
                                     <h5 className="post-header-badge">
                                         <div className="username">
-                                            @{username}
+                                            {username ? "@" + username : ""}
                                         </div>
                                     </h5>
                                 </div>
@@ -159,6 +228,13 @@ function View({ user }) {
                                                 </div>
                                             </>
                                         ))}
+                                    {posts && posts.length === 0 && (
+                                        <div className="no-posts">
+                                            <Typography>
+                                                No posts yet.
+                                            </Typography>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>

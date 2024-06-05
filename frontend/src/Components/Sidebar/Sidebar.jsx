@@ -122,7 +122,7 @@ function Sidebar({ handleLogout, user }) {
                                 <h4>{fullName}</h4>
                                 <h5>@{username}</h5>
                             </div>
-                            <ListItemIcon className="done_icon">
+                            <ListItemIcon className="done-icon">
                                 <DoneIcon />
                             </ListItemIcon>
                         </div>

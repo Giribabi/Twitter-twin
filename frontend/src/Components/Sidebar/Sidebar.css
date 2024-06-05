@@ -47,7 +47,9 @@
 .user-info {
     margin-left: 10px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 .user-info > h4 {
     font-size: 14px;
@@ -57,9 +59,23 @@
     opacity: 50%;
     margin: 2px 0px;
 }
+
+.user-details > h4,
+.user-details > h5 {
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+.done-icon {
+    color: var(--twitter-color) !important;
+    margin-left: 5px;
+}
 /* for tweet button */
 .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
     text-transform: none !important;
+}
+.css-137ul40-MuiButtonBase-root-MuiIconButton-root {
+    margin-left: 0px !important;
+    padding-left: 2px !important;
 }
 @media screen and (max-width: 688px) {
     .sidebar-tweet {

@@ -4,7 +4,6 @@
     justify-content: flex-start;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 6px 6px -6px rgba(0, 0, 0, 0.2);
 }
 .profile-image {
     width: 10vw !important;
@@ -42,8 +41,13 @@
     bottom: calc(36px + 6vw);
 }
 .profile-image:hover {
-    opacity: 80%;
     cursor: pointer;
+}
+.no-posts {
+    width: 100%;
+    padding: 10px;
+    padding-top: 20px;
+    text-align: center;
 }
 .cover-image {
     width: 100%;
@@ -71,7 +75,7 @@
     bottom: 12vw;
 }
 .profile-body {
-    max-height: calc(100vh - 75px);
+    height: calc(100vh - 75px);
     overflow-y: scroll;
     scrollbar-width: none;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
@@ -81,6 +85,7 @@
     justify-content: center;
     align-items: end;
     border-bottom: 1px solid lightgray;
+    margin-bottom: 10px;
 }
 .posts-heading {
     text-align: center;
@@ -105,8 +110,4 @@
 }
 
 @media (max-width: 450px) {
-    .profile-image {
-        width: 30vw !important;
-        height: 30vw !important;
-    }
 }

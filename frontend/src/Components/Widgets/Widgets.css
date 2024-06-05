@@ -34,3 +34,8 @@
     scrollbar-width: none;
     margin: 3px;
 }
+@media (max-width: 800px) {
+    .widgets {
+        display: none;
+    }
+}
