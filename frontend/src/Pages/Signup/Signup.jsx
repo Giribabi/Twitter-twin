@@ -26,17 +26,23 @@ function Signup() {
     // if (googleUser) console.log(googleUser);
     // if (googleError) console.log(googleError);
     //use loading property to showing loader
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        createUserWithEmailAndPassword(email, password);
 
-        const user = {
-            username: username,
-            name: fullName,
-            email: email,
-        };
+        try {
+            await createUserWithEmailAndPassword(email, password);
 
-        axios.post("http://localhost:3030/register", user);
+            const user = {
+                username: username,
+                name: fullName,
+                email: email,
+            };
+
+            await axios.post("http://localhost:3030/register", user);
+        } catch (error) {
+            console.error("Error creating user or registering:", error);
+        }
     };
 
     const handleGoogleSignin = () => {

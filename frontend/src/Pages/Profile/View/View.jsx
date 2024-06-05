@@ -19,7 +19,7 @@ function View({ user }) {
     const username = user[0]?.username;
     const fullname = user[0]?.name;
     const [loading, setLoading] = useState(false);
-    const [imageURL, setImageURL] = useState("");
+    const [coverImageURL, setCoverImageURL] = useState("");
     const [profileImageURL, setProfileImageURL] = useState("");
     // add user pic url to Avatar
 
@@ -32,61 +32,63 @@ function View({ user }) {
             .catch((error) => console.log(error));
     }, [posts.length]);
 
-    const handleCoverImageUpload = (e) => {
+    const handleCoverImageUpload = async (e) => {
         setLoading(true);
-        console.log("entered");
-        const image = e.target.files[0];
-        if (image) {
-            const formData = new FormData();
-            formData.set("image", image);
+        // console.log("entered");
 
-            axios
-                .post(
-                    "https://api.imgbb.com/1/upload?key=2ff8b34d7b55a2c85194c0e00b865b71",
-                    formData
-                )
-                .then((res) => {
-                    const url = res.data.data.display_url;
-                    // console.log(url);
-                    setImageURL(url);
-                    setLoading(false);
-                })
-                .catch((error) => {
-                    console.error("Error uploading image:", error);
-                });
-        } else {
-            // console.log("No image selected");
+        const image = e.target.files[0];
+        // console.log(image);
+
+        if (!image) {
+            console.log("No image selected");
+            setLoading(false);
+            return;
         }
-        setLoading(false);
+
+        const formData = new FormData();
+        formData.set("image", image);
+
+        try {
+            const res = await axios.post(
+                "https://api.imgbb.com/1/upload?key=2ff8b34d7b55a2c85194c0e00b865b71",
+                formData
+            );
+            const url = res.data.data.display_url;
+            setCoverImageURL(url);
+        } catch (error) {
+            console.error("Error uploading image:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
-    const handleProfileImageUpload = (e) => {
+    const handleProfileImageUpload = async (e) => {
         setLoading(true);
-        console.log("entered");
         const image = e.target.files[0];
-        if (image) {
-            const formData = new FormData();
-            formData.set("image", image);
 
-            axios
-                .post(
-                    "https://api.imgbb.com/1/upload?key=2ff8b34d7b55a2c85194c0e00b865b71",
-                    formData
-                )
-                .then((res) => {
-                    const url = res.data.data.display_url;
-                    // console.log(url);
-                    setProfileImageURL(url);
-                    setLoading(false);
-                })
-                .catch((error) => {
-                    console.error("Error uploading image:", error);
-                });
-        } else {
-            // console.log("No image selected");
+        if (!image) {
+            console.log("No image selected");
+            setLoading(false);
+            return;
         }
-        setLoading(false);
+
+        const formData = new FormData();
+        formData.set("image", image);
+
+        try {
+            const res = await axios.post(
+                "https://api.imgbb.com/1/upload?key=2ff8b34d7b55a2c85194c0e00b865b71",
+                formData
+            );
+            const url = res.data.data.display_url;
+            setProfileImageURL(url);
+        } catch (error) {
+            console.error("Error uploading image:", error);
+        } finally {
+            setLoading(false);
+        }
     };
+
     return (
         <div className="view-profile">
             <div className="profile-heading">
@@ -151,6 +153,7 @@ function View({ user }) {
                                                         ? "none"
                                                         : "block",
                                                 color: "var(--twitter-color)",
+                                                marginLeft: "4px",
                                             }}
                                         />
                                     </div>

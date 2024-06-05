@@ -42,10 +42,10 @@ function TweetBox({ sendingTweet, setSendingTweet }) {
         }
     }, [email, user]);
 
-    const handleTweet = (e) => {
-        setSendingTweet(true);
+    const handleTweet = async (e) => {
         e.preventDefault();
-        console.log(sendingTweet);
+        setSendingTweet(true);
+        console.log(sendingTweet); // This will still log the previous state due to the asynchronous nature of setState
 
         const userPost = {
             profilePhoto: userProfilePic,
@@ -56,53 +56,55 @@ function TweetBox({ sendingTweet, setSendingTweet }) {
             photo: imageURL,
         };
 
-        fetch("http://localhost:3030/post", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userPost),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                // console.log(data);
-            })
-            .catch((error) => console.log(error));
-        setPost("");
-        setImageURL("");
+        try {
+            const response = await fetch("http://localhost:3030/post", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userPost),
+            });
 
-        setSendingTweet(false);
-        console.log(sendingTweet);
+            const data = await response.json();
+            console.log(data); // Optionally handle the response data
+        } catch (error) {
+            console.error("Error posting tweet:", error);
+        } finally {
+            setPost("");
+            setImageURL("");
+            setSendingTweet(false);
+            console.log(sendingTweet); // This will log the state after it has been updated
+        }
     };
 
-    const handleImageUpload = (e) => {
-        // console.log("entered");
+    const handleImageUpload = async (e) => {
         setLoading(true);
         const image = e.target.files[0];
-        if (image) {
-            const formData = new FormData();
-            formData.set("image", image);
 
-            axios
-                .post(
-                    "https://api.imgbb.com/1/upload?key=2ff8b34d7b55a2c85194c0e00b865b71",
-                    formData
-                )
-                .then((res) => {
-                    setOpen(true);
-                    setIsImageUploaded(true);
-                    setImageURL(res.data.data.display_url);
-                    setLoading(false);
-                })
-                .catch((error) => {
-                    setOpen(true);
-                    setImageUploadFailed(true);
-                    console.error("Error uploading image:", error);
-                });
-        } else {
-            // console.log("No image selected");
+        if (!image) {
+            console.log("No image selected");
+            setLoading(false);
+            return;
         }
-        setLoading(false);
+
+        const formData = new FormData();
+        formData.set("image", image);
+
+        try {
+            const res = await axios.post(
+                "https://api.imgbb.com/1/upload?key=2ff8b34d7b55a2c85194c0e00b865b71",
+                formData
+            );
+            setOpen(true);
+            setIsImageUploaded(true);
+            setImageURL(res.data.data.display_url);
+        } catch (error) {
+            setOpen(true);
+            setImageUploadFailed(true);
+            console.error("Error uploading image:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
