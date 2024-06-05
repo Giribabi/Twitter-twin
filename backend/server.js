@@ -57,6 +57,20 @@ async function run() {
             const result = await usersCollection.insertOne(user);
             res.send(result);
         });
+
+        //patch
+        app.patch("/profile/update/:email", async (req, res) => {
+            const filter = req.params;
+            const profile = req.body;
+            const options = { upsert: true };
+            const updateDoc = { $set: profile };
+            const result = await usersCollection.updateOne(
+                filter,
+                updateDoc,
+                options
+            );
+            res.send(result);
+        });
     } catch (error) {
         console.log(error);
     }

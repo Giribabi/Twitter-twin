@@ -34,10 +34,8 @@ function View({ user }) {
 
     const handleCoverImageUpload = async (e) => {
         setLoading(true);
-        // console.log("entered");
 
         const image = e.target.files[0];
-        // console.log(image);
 
         if (!image) {
             console.log("No image selected");
@@ -54,9 +52,25 @@ function View({ user }) {
                 formData
             );
             const url = res.data.data.display_url;
-            setCoverImageURL(url);
-        } catch (error) {
-            console.error("Error uploading image:", error);
+            // updating the user profile photo to the backend
+            if (url) {
+                const userCoverImage = {
+                    email: user[0]?.email,
+                    coverImage: url,
+                };
+
+                try {
+                    await axios.patch(
+                        `http://localhost:3030/profile/update/${user[0]?.email}`,
+                        userCoverImage
+                    );
+                    setCoverImageURL(url);
+                } catch (updateError) {
+                    console.error("Error updating user profile:", updateError);
+                }
+            }
+        } catch (uploadError) {
+            console.error("Error uploading image:", uploadError);
         } finally {
             setLoading(false);
         }
@@ -81,7 +95,22 @@ function View({ user }) {
                 formData
             );
             const url = res.data.data.display_url;
-            setProfileImageURL(url);
+            if (url) {
+                const userProfileImage = {
+                    email: user[0]?.email,
+                    coverImage: url,
+                };
+
+                try {
+                    await axios.patch(
+                        `http://localhost:3030/profile/update/${user[0]?.email}`,
+                        userProfileImage
+                    );
+                    setProfileImageURL(url);
+                } catch (updateError) {
+                    console.error("Error updating user profile:", updateError);
+                }
+            }
         } catch (error) {
             console.error("Error uploading image:", error);
         } finally {
@@ -103,9 +132,18 @@ function View({ user }) {
                     {
                         <div className="">
                             <div className="cover-image-container">
-                                <div className="cover-image">
-                                    <CameraAltOutlinedIcon className="camera-icon" />
-                                </div>
+                                {coverImageURL ? (
+                                    <div className="cover-image">
+                                        <img
+                                            src={coverImageURL}
+                                            alt="cover-pic"
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className="cover-image">
+                                        <CameraAltOutlinedIcon className="camera-icon" />
+                                    </div>
+                                )}
                                 <div className="image-upload-icon">
                                     <input
                                         type="file"
@@ -137,7 +175,7 @@ function View({ user }) {
                                 />
                                 <label htmlFor="profile-image-upload">
                                     <Avatar
-                                        src=""
+                                        src={profileImageURL}
                                         alt="profile-image"
                                         className="profile-image"
                                     />

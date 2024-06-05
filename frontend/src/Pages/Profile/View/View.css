@@ -57,6 +57,10 @@
     align-items: center;
     background-color: lightgrey;
 }
+.cover-image > img {
+    height: 13vh;
+    width: 100%;
+}
 .camera-icon {
     color: white !important;
     font-size: 7vw !important;
