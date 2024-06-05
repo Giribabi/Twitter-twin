@@ -98,7 +98,7 @@ function View({ user }) {
             if (url) {
                 const userProfileImage = {
                     email: user[0]?.email,
-                    coverImage: url,
+                    profileImage: url,
                 };
 
                 try {
@@ -132,10 +132,11 @@ function View({ user }) {
                     {
                         <div className="">
                             <div className="cover-image-container">
-                                {coverImageURL ? (
+                                {user[0]?.coverImage &&
+                                user[0]?.coverImage !== "" ? (
                                     <div className="cover-image">
                                         <img
-                                            src={coverImageURL}
+                                            src={user[0].coverImage}
                                             alt="cover-pic"
                                         />
                                     </div>
@@ -175,7 +176,7 @@ function View({ user }) {
                                 />
                                 <label htmlFor="profile-image-upload">
                                     <Avatar
-                                        src={profileImageURL}
+                                        src={user[0]?.profileImage ?? ""}
                                         alt="profile-image"
                                         className="profile-image"
                                     />
