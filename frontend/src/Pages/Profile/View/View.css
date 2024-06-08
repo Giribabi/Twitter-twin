@@ -29,7 +29,14 @@
     align-items: flex-start;
     color: black;
 }
+.profile-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
 .fullname > h3 {
+    white-space: nowrap;
     margin-block-start: 0px;
     margin-block-end: 0px !important;
 }
@@ -56,10 +63,6 @@
     justify-content: center;
     align-items: center;
     background-color: lightgrey;
-}
-.cover-image > img {
-    height: 13vh;
-    width: 100%;
 }
 .camera-icon {
     color: white !important;

@@ -1,0 +1,83 @@
+.edit-profile-button {
+    position: relative;
+    right: 40px;
+    padding: 7px;
+    background-color: white;
+    border: 1px solid var(--twitter-color);
+    color: var(--twitter-color);
+    border-radius: 10px;
+    cursor: pointer;
+}
+.edit-profile-button:hover {
+    background-color: var(--twitter-color);
+    color: white;
+}
+.form-content {
+    padding: 5px;
+}
+.edit-profile-heading {
+    padding-left: 10px;
+}
+.modal-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.save-profile-button,
+.cancel-changes-button {
+    padding: 6px 10px !important;
+    background-color: var(--twitter-color) !important;
+    border: 1px solid var(--twitter-color) !important;
+    color: white !important;
+    font-size: 16px !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    opacity: 80% !important;
+    margin: 8px !important;
+    margin-bottom: 15px !important;
+}
+.save-profile-button:hover,
+.edit-dob-button:hover,
+.cancel-changes-button:hover {
+    opacity: 100% !important;
+}
+.cancel-changes-button {
+    padding: 3px 6px !important;
+}
+.modal-dob-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px;
+    margin: 10px 2px;
+}
+.form-footer {
+    padding: 7px;
+}
+.birthdate-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 3px;
+    padding-right: 5px;
+}
+.edit-dob-button {
+    padding: 4px 10px;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    opacity: 70%;
+    margin: 8px;
+    margin-bottom: 15px;
+}
+.switch-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

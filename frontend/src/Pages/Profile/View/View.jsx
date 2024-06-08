@@ -11,6 +11,7 @@ import { Avatar, containerClasses, Divider, Typography } from "@mui/material";
 import Post from "../../../Components/Post/Post";
 import ReactLoading from "react-loading";
 import axios from "axios";
+import Edit from "../Edit/Edit";
 
 /* ?? is nullish coalescing operator better than || as "??" prevents rendering user[0].bio if it is null or empty string */
 
@@ -147,10 +148,11 @@ function View({ user }) {
                             <div className="cover-image-container">
                                 {user[0]?.coverImage &&
                                 user[0]?.coverImage !== "" ? (
-                                    <div className="cover-image">
+                                    <div className="cover-image-container">
                                         <img
                                             src={user[0].coverImage}
                                             alt="cover-pic"
+                                            className="cover-image"
                                         />
                                     </div>
                                 ) : (
@@ -194,77 +196,35 @@ function View({ user }) {
                                         className="profile-image"
                                     />
                                 </label>
-                                <div className="user-credentials">
-                                    <div className="fullname">
-                                        <h3>{fullname ?? "not available"}</h3>
-                                        <VerifiedIcon
-                                            style={{
-                                                display:
-                                                    !fullname ||
-                                                    fullname.length === 0
-                                                        ? "none"
-                                                        : "block",
-                                                color: "var(--twitter-color)",
-                                                marginLeft: "4px",
-                                            }}
-                                        />
-                                    </div>
-                                    <h5 className="post-header-badge">
-                                        <div className="username">
-                                            {username ? "@" + username : ""}
+                                <div className="profile-details">
+                                    <div className="user-credentials">
+                                        <div className="fullname">
+                                            <h3>
+                                                {fullname ?? "not available"}
+                                            </h3>
+                                            <VerifiedIcon
+                                                style={{
+                                                    display:
+                                                        !fullname ||
+                                                        fullname.length === 0
+                                                            ? "none"
+                                                            : "block",
+                                                    color: "var(--twitter-color)",
+                                                    marginLeft: "4px",
+                                                }}
+                                            />
                                         </div>
-                                    </h5>
+                                        <h5 className="post-header-badge">
+                                            <div className="username">
+                                                {username ? "@" + username : ""}
+                                            </div>
+                                        </h5>
+                                    </div>
+                                    <div className="edit-profile">
+                                        <Edit loggedinUser={user} />
+                                    </div>
                                 </div>
                             </div>
-                            {/* <div className="user-details">
-                                <div className="text-info">
-                                    <div className="details">
-                                        <Typography
-                                            style={{ fontSize: "18px" }}
-                                        >
-                                            <strong>Full name: </strong>
-                                            {fullname}
-                                            <br />
-                                            <strong>Username: </strong>
-                                            <span
-                                                style={{
-                                                    color: "var(--twitter-color)",
-                                                }}
-                                            >
-                                                @
-                                            </span>
-                                            {username}
-                                        </Typography>
-                                    </div>
-                                    <div className="info">
-                                        <Typography
-                                            style={{ fontSize: "18px" }}
-                                        >
-                                            <strong>About: </strong>
-                                            {user[0]?.bio ??
-                                                "No information provided yet."}
-                                        </Typography>
-                                    </div>
-                                </div>
-                                <div className="other-profile-info">
-                                    <div className="location-info">
-                                        <LocationOnIcon />:
-                                        {user[0]?.location ? (
-                                            <p> user[0]?.location</p>
-                                        ) : (
-                                            " No information provided yet."
-                                        )}
-                                    </div>
-                                    <div className="website-info">
-                                        <AddLinkIcon />:
-                                        {user[0]?.wesbite ? (
-                                            <p> user[0]?.wesbite</p>
-                                        ) : (
-                                            " No information provided yet."
-                                        )}
-                                    </div>
-                                </div>
-                            </div> */}
                             <div className="user-posts-container">
                                 <div className="posts-heading-container">
                                     <div className="posts-heading">
