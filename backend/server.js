@@ -4,7 +4,13 @@ require("dotenv").config();
 const cors = require("cors");
 const PORT = process.env.PORT || 3030;
 
-app.use(cors());
+app.use(
+    cors({
+        origin: "https://twitter-twin.vercel.app",
+        optionsSuccessStatus: 200,
+    })
+);
+
 app.use(express.json());
 
 const { MongoClient, ServerApiVersion } = require("mongodb");
