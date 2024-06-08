@@ -9,7 +9,9 @@ const useLoggedinUser = () => {
     const email = user[0]?.email;
     const [loggedinUser, setLoggedinUser] = useState({});
     useEffect(() => {
-        fetch(`http://localhost:3030/loggedUser?email=${email}`)
+        fetch(
+            `https://giribabi-twitter-twin-api.onrender.com/loggedUser?email=${email}`
+        )
             .then((res) => res.json())
             .then((data) => {
                 // console.log(data);
