@@ -6,7 +6,7 @@ import LoadingPage from "../LoadingPage";
 
 function ProtectedRoute({ children }) {
     const [user, isLoading] = useAuthState(auth);
-    //console.log(user);
+    // console.log(user);
 
     return (
         <div>

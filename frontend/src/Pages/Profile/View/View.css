@@ -29,6 +29,9 @@
     align-items: flex-start;
     color: black;
 }
+.arrow-icon {
+    cursor: pointer;
+}
 .profile-details {
     display: flex;
     flex-direction: row;

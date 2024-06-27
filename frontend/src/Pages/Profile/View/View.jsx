@@ -139,7 +139,7 @@ function View({ user }) {
                     className="arrow-icon"
                     onClick={() => navigate("/")}
                 />
-                <h2>{username ? "@" + username : "not available"}</h2>
+                <h2>{username ? "@" + username : "Guest user"}</h2>
             </div>
             <div className="profile-body">
                 <div className="profile-bio">
@@ -199,9 +199,7 @@ function View({ user }) {
                                 <div className="profile-details">
                                     <div className="user-credentials">
                                         <div className="fullname">
-                                            <h3>
-                                                {fullname ?? "not available"}
-                                            </h3>
+                                            <h3>{fullname ?? "Guest user"}</h3>
                                             <VerifiedIcon
                                                 style={{
                                                     display:

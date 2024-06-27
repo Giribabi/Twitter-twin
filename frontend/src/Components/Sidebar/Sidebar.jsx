@@ -12,21 +12,21 @@ import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import MoreIcon from "@mui/icons-material/More";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import StyledLink from "../StyledLink/StyledLink";
-import { Link } from "react-router-dom";
 import {
     Avatar,
     Button,
     Divider,
     IconButton,
-    ListItem,
     ListItemIcon,
     Menu,
     MenuItem,
 } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import useLoggedinUser from "../../hooks/useLoggedinUser";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar({ handleLogout, user }) {
+    const navigate = useNavigate();
     const [loggedinUser] = useLoggedinUser();
     // console.log(loggedinUser);
 
@@ -41,9 +41,15 @@ function Sidebar({ handleLogout, user }) {
     const handleClose = () => {
         setOpenMenu(false);
     };
+
+    const navigateToHome = () => {
+        navigate("/home/feed");
+    };
     return (
         <div className="sidebar-container">
-            <Logo height={36} width={36} />
+            <div className="logo-home" onClick={navigateToHome}>
+                <Logo height={36} width={36} />
+            </div>
             <StyledLink to="/home/feed">
                 <SidebarOptions active={false} Icon={HomeIcon} text="Home" />
             </StyledLink>

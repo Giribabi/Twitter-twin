@@ -5,7 +5,7 @@ import useLoggedinUser from "../../hooks/useLoggedinUser";
 
 function Profile() {
     const [loggedinUser] = useLoggedinUser();
-    // console.log(loggedinUser);
+    console.log(loggedinUser);
     return (
         <div className="profile-page">
             <View user={loggedinUser} />

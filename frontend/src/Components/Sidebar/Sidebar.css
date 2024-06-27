@@ -6,6 +6,10 @@
     align-items: center;
     cursor: pointer;
 }
+.logo-home {
+    display: inline-block;
+    cursor: pointer;
+}
 .sidebarOption > h2 {
     font-weight: 600;
     font-size: 18px;
