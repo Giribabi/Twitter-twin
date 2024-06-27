@@ -1,2 +1,2 @@
 # Twitter-twin
-This MERN stack projects aims to be similar to twitter (X)
+This MERN stack project aims to be similar to twitter (X)
