@@ -19,6 +19,7 @@
     align-items: center;
     margin-top: 8px;
 }
+.explore-posts,
 .posts {
     width: 100%;
     margin-top: 5px;
@@ -26,6 +27,9 @@
     overflow-y: scroll;
     scrollbar-width: none;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+.explore-posts {
+    height: calc(100vh - 15px);
 }
 .single-post {
     width: 100%;

@@ -5,16 +5,12 @@ import Widgets from "../Components/Widgets/Widgets";
 
 const useLoggedinUser = () => {
     const user = useAuthState(auth);
-    // console.log(user);
     const email = user[0]?.email;
     const [loggedinUser, setLoggedinUser] = useState({});
     useEffect(() => {
-        fetch(
-            `https://giribabi-twitter-twin-api.onrender.com/loggedUser?email=${email}`
-        )
+        fetch(`http://localhost:3030/loggedUser?email=${email}`)
             .then((res) => res.json())
             .then((data) => {
-                // console.log(data);
                 setLoggedinUser(data);
             })
             .catch((error) => console.log(error));

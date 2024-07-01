@@ -67,13 +67,13 @@ function Sidebar({ handleLogout, user }) {
                     text="Notifications"
                 />
             </StyledLink>
-            <StyledLink to="/home/messages">
+            {/* <StyledLink to="/home/messages">
                 <SidebarOptions
                     active={false}
                     Icon={MailOutlineIcon}
                     text="Messages"
                 />
-            </StyledLink>
+            </StyledLink> */}
             <StyledLink to="/home/bookmarks">
                 <SidebarOptions
                     active={false}

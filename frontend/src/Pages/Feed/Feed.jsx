@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "../Pages.css";
 import TweetBox from "../../Components/TweetBox/TweetBox";
-import axios from "axios";
 import Post from "../../Components/Post/Post";
 import ReactLoading from "react-loading";
 import "../Pages.css";
-import { Divider, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
 function Feed() {
     const [sendingTweet, setSendingTweet] = useState(false);
@@ -13,7 +12,7 @@ function Feed() {
 
     useEffect(() => {
         setSendingTweet(true);
-        fetch("https://giribabi-twitter-twin-api.onrender.com/post")
+        fetch("http://localhost:3030/post")
             .then((res) => res.json())
             .then((data) => setPosts(data))
             .catch((error) => console.log(error));

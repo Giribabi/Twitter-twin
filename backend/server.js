@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3030;
 
 app.use(
     cors({
-        origin: "https://twitter-twin.vercel.app",
+        origin: "http://localhost:3000",
         optionsSuccessStatus: 200,
     })
 );
@@ -94,7 +94,7 @@ run().catch(console.dir);
 console.log("Your server started");
 
 app.get("/", function (req, res) {
-    res.send("Hello World");
+    res.send("Hello World, this is my Twitter-twin API");
 });
 
 app.listen(PORT);

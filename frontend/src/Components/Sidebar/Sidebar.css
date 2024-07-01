@@ -9,6 +9,7 @@
 .logo-home {
     display: inline-block;
     cursor: pointer;
+    margin-bottom: 20px;
 }
 .sidebarOption > h2 {
     font-weight: 600;

@@ -89,7 +89,7 @@ function Edit({ loggedinUser }) {
         };
         if (editedInfo) {
             await axios.patch(
-                `https://giribabi-twitter-twin-api.onrender.com/profile/update/${loggedinUser[0]?.email}`,
+                `http://localhost:3030/profile/update/${loggedinUser[0]?.email}`,
                 editedInfo
             );
         }

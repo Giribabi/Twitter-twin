@@ -29,7 +29,7 @@ function View({ user }) {
             setPostsLoading(true);
             try {
                 const response = await fetch(
-                    `https://giribabi-twitter-twin-api.onrender.com/myPosts?email=${user[0]?.email}`
+                    `http://localhost:3030/myPosts?email=${user[0]?.email}`
                 );
                 // if (!response.ok) {
                 //     throw new Error("Network response was not ok");
@@ -77,7 +77,7 @@ function View({ user }) {
 
                 try {
                     await axios.patch(
-                        `https://giribabi-twitter-twin-api.onrender.com/profile/update/${user[0]?.email}`,
+                        `http://localhost:3030/profile/update/${user[0]?.email}`,
                         userCoverImage
                     );
                 } catch (updateError) {
@@ -118,7 +118,7 @@ function View({ user }) {
 
                 try {
                     await axios.patch(
-                        `https://giribabi-twitter-twin-api.onrender.com/profile/update/${user[0]?.email}`,
+                        `http://localhost:3030/profile/update/${user[0]?.email}`,
                         userProfileImage
                     );
                 } catch (updateError) {
