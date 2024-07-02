@@ -2,7 +2,7 @@ import React from "react";
 import "../Pages.css";
 
 function Bookmarks() {
-    return <div>Bookmarks</div>;
+    return <div className="section">No bookmarks saved.</div>;
 }
 
 export default Bookmarks;
