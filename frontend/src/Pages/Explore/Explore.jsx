@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../Pages.css";
-import TweetBox from "../../Components/TweetBox/TweetBox";
 import Post from "../../Components/Post/Post";
 import ReactLoading from "react-loading";
 import "../Pages.css";
