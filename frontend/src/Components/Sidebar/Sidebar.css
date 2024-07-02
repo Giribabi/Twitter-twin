@@ -31,6 +31,13 @@
     overflow-y: scroll;
     scrollbar-width: none;
 }
+.sidebar-mobile {
+    width: 90%;
+    padding-left: 15px;
+    max-height: calc(100vh - 20px);
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
 .sidebar-tweet {
     width: 100%;
     background-color: var(--twitter-color) !important;
@@ -39,7 +46,7 @@
     font-weight: 700 !important;
     border-radius: 30px !important;
     height: 35px !important;
-    margin-top: 10px !important;
+    margin-top: 30px !important;
 }
 .profile-info {
     display: flex;

@@ -5,8 +5,25 @@
     justify-content: space-between;
     align-items: center;
 }
+.mobile-home {
+    width: 90vw;
+}
 .page-container {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.menu-icon {
+    color: grey;
+    padding: 1px;
+    border-radius: 50%;
+    background-color: rgb(235, 235, 235);
+    margin: 3px;
+    box-shadow: 1px 1px 2px 1px rgb(182, 182, 182);
+}
+.menu-icon-container {
+    display: inline;
+    position: absolute;
+    top: 1px;
+    left: 1px;
 }

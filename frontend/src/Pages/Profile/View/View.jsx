@@ -12,6 +12,7 @@ import Post from "../../../Components/Post/Post";
 import ReactLoading from "react-loading";
 import axios from "axios";
 import Edit from "../Edit/Edit";
+import { isMobile } from "react-device-detect";
 
 /* ?? is nullish coalescing operator better than || as "??" prevents rendering user[0].bio if it is null or empty string */
 
@@ -135,11 +136,15 @@ function View({ user }) {
     return (
         <div className="view-profile">
             <div className="profile-heading">
-                <ArrowBackIcon
-                    className="arrow-icon"
-                    onClick={() => navigate("/")}
-                />
-                <h2>{username ? "@" + username : "Guest user"}</h2>
+                {!isMobile && (
+                    <ArrowBackIcon
+                        className="arrow-icon"
+                        onClick={() => navigate("/")}
+                    />
+                )}
+                <h2 style={{ paddingLeft: isMobile ? "15px" : "1px" }}>
+                    {username ? "@" + username : "Guest user"}
+                </h2>
             </div>
             <div className="profile-body">
                 <div className="profile-bio">

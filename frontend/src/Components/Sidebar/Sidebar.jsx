@@ -4,12 +4,10 @@ import "./Sidebar.css";
 import SidebarOptions from "./SidebarOptions";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
-import MoreIcon from "@mui/icons-material/More";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import StyledLink from "../StyledLink/StyledLink";
 import {
@@ -24,11 +22,13 @@ import {
 import DoneIcon from "@mui/icons-material/Done";
 import useLoggedinUser from "../../hooks/useLoggedinUser";
 import { useNavigate } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 
 function Sidebar({ handleLogout, user }) {
+    console.log(user);
     const navigate = useNavigate();
     const [loggedinUser] = useLoggedinUser();
-    // console.log(loggedinUser);
+    console.log(loggedinUser);
 
     const fullName = loggedinUser[0]?.name ?? "Guest User";
     const username = loggedinUser[0]?.username ?? "Guest User";
@@ -46,7 +46,7 @@ function Sidebar({ handleLogout, user }) {
         navigate("/home/feed");
     };
     return (
-        <div className="sidebar-container">
+        <div className={isMobile ? "sidebar-mobile" : "sidebar-container"}>
             <div className="logo-home" onClick={navigateToHome}>
                 <Logo height={36} width={36} />
             </div>
@@ -67,13 +67,6 @@ function Sidebar({ handleLogout, user }) {
                     text="Notifications"
                 />
             </StyledLink>
-            {/* <StyledLink to="/home/messages">
-                <SidebarOptions
-                    active={false}
-                    Icon={MailOutlineIcon}
-                    text="Messages"
-                />
-            </StyledLink> */}
             <StyledLink to="/home/bookmarks">
                 <SidebarOptions
                     active={false}
@@ -95,9 +88,7 @@ function Sidebar({ handleLogout, user }) {
                     text="Profile"
                 />
             </StyledLink>
-            <StyledLink to="/home/more">
-                <SidebarOptions active={false} Icon={MoreIcon} text="More" />
-            </StyledLink>
+
             <Button className="sidebar-tweet">Tweet</Button>
             <div className="profile-info">
                 <Avatar src={userProfilePic} />

@@ -1,33 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Widgets from "../../Components/Widgets/Widgets";
 import "./Home.css";
 import { Grid } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { signOut } from "firebase/auth";
 import { Outlet } from "react-router-dom";
-import useLoggedinUser from "../../hooks/useLoggedinUser";
+import { isMobile } from "react-device-detect";
+import SideBarDrawer from "../../Components/Drawer/Drawer";
 
 function Home() {
-    const user = useAuthState(auth);
+    const [openDrawer, setOpenDrawer] = useState(false);
+    const [user] = useAuthState(auth);
+
+    const openSideDrawer = () => {
+        setOpenDrawer(true);
+    };
+
+    const closeDrawer = () => {
+        setOpenDrawer(false);
+    };
+
     const handleLogout = () => {
         signOut(auth);
     };
+
     return (
         <div className="page-container">
-            <div className="home-container">
+            {isMobile && (
+                <div className="menu-icon-container" onClick={openSideDrawer}>
+                    <MenuIcon className="menu-icon" />
+                </div>
+            )}
+            <SideBarDrawer
+                handleLogout={handleLogout}
+                openDrawer={openDrawer}
+                closeDrawer={closeDrawer}
+            />
+
+            <div className={isMobile ? "mobile-home" : "home-container"}>
                 <Grid container spacing={1}>
-                    <Grid item xs={3} sm={4} md={4} lg={3} xl={2.5}>
-                        <Sidebar handleLogout={handleLogout} user={user} />
-                    </Grid>
-                    <Grid item xs={6} sm={8} md={8} lg={6} xl={6}>
-                        {/* this Outlet component is responsible for rendering the Bookmarks,Messages,Profile components within the Parent (Home) Layout through the nested route in App.js */}
+                    {!isMobile && (
+                        <Grid item xs={0} sm={4} md={4} lg={3} xl={2.5}>
+                            <Sidebar handleLogout={handleLogout} user={user} />
+                        </Grid>
+                    )}
+                    <Grid item xs={12} sm={8} md={8} lg={6} xl={6}>
                         <Outlet />
                     </Grid>
-                    <Grid item xs={0} sm={0} md={0} lg={3} xl={3.5}>
-                        <Widgets />
-                    </Grid>
+                    {!isMobile && (
+                        <Grid item xs={0} sm={0} md={0} lg={3} xl={3.5}>
+                            <Widgets />
+                        </Grid>
+                    )}
                 </Grid>
             </div>
         </div>
