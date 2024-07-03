@@ -1,9 +1,12 @@
 import React from "react";
 import "./Sidebar.css";
 
-function SidebarOptions({ active, text, Icon }) {
+function SidebarOptions({ active, text, Icon, closeDrawer }) {
     return (
-        <div className={`sidebarOption ${active && "sidebarOption-active"}`}>
+        <div
+            onClick={closeDrawer}
+            className={`sidebarOption ${active && "sidebarOption-active"}`}
+        >
             <Icon />
             <h2>{text}</h2>
         </div>

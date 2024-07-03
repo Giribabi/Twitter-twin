@@ -19,7 +19,10 @@ function SideBarDrawer({ openDrawer, closeDrawer, handleLogout }) {
                         <CloseIcon />
                     </IconButton>
                 </div>
-                <Sidebar handleLogout={handleLogout} />
+                <Sidebar
+                    handleLogout={handleLogout}
+                    closeDrawer={closeDrawer}
+                />
             </div>
         </Drawer>
     );

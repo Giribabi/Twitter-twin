@@ -24,11 +24,9 @@ import useLoggedinUser from "../../hooks/useLoggedinUser";
 import { useNavigate } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 
-function Sidebar({ handleLogout, user }) {
-    console.log(user);
+function Sidebar({ handleLogout, user, closeDrawer }) {
     const navigate = useNavigate();
     const [loggedinUser] = useLoggedinUser();
-    console.log(loggedinUser);
 
     const fullName = loggedinUser[0]?.name ?? "Guest User";
     const username = loggedinUser[0]?.username ?? "Guest User";
@@ -51,10 +49,16 @@ function Sidebar({ handleLogout, user }) {
                 <Logo height={36} width={36} />
             </div>
             <StyledLink to="/home/feed">
-                <SidebarOptions active={false} Icon={HomeIcon} text="Home" />
+                <SidebarOptions
+                    closeDrawer={closeDrawer}
+                    active={false}
+                    Icon={HomeIcon}
+                    text="Home"
+                />
             </StyledLink>
             <StyledLink to="/home/explore">
                 <SidebarOptions
+                    closeDrawer={closeDrawer}
                     active={false}
                     Icon={SearchIcon}
                     text="Explore"
@@ -62,6 +66,7 @@ function Sidebar({ handleLogout, user }) {
             </StyledLink>
             <StyledLink to="/home/notifications">
                 <SidebarOptions
+                    closeDrawer={closeDrawer}
                     active={false}
                     Icon={NotificationsIcon}
                     text="Notifications"
@@ -69,6 +74,7 @@ function Sidebar({ handleLogout, user }) {
             </StyledLink>
             <StyledLink to="/home/bookmarks">
                 <SidebarOptions
+                    closeDrawer={closeDrawer}
                     active={false}
                     Icon={BookmarkBorderIcon}
                     text="Bookmarks"
@@ -76,6 +82,7 @@ function Sidebar({ handleLogout, user }) {
             </StyledLink>
             <StyledLink to="/home/lists">
                 <SidebarOptions
+                    closeDrawer={closeDrawer}
                     active={false}
                     Icon={ListAltIcon}
                     text="Lists"
@@ -83,6 +90,7 @@ function Sidebar({ handleLogout, user }) {
             </StyledLink>
             <StyledLink to="/home/profile">
                 <SidebarOptions
+                    closeDrawer={closeDrawer}
                     active={false}
                     Icon={PermIdentityIcon}
                     text="Profile"
