@@ -12,7 +12,7 @@ function Feed() {
 
     useEffect(() => {
         setSendingTweet(true);
-        fetch("http://localhost:3030/post")
+        fetch("https://giribabi-twitter-twin-api.onrender.com/post")
             .then((res) => res.json())
             .then((data) => setPosts(data))
             .catch((error) => console.log(error));

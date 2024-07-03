@@ -29,7 +29,9 @@ function TweetBox({ sendingTweet, setSendingTweet }) {
 
     useEffect(() => {
         if (user?.providerData[0]?.providerId === "password") {
-            fetch(`http://localhost:3030/loggedUser?email=${email}`)
+            fetch(
+                `https://giribabi-twitter-twin-api.onrender.com/loggedUser?email=${email}`
+            )
                 .then((res) => res.json())
                 .then((data) => {
                     setFullname(data[0]?.name || "");
@@ -57,13 +59,16 @@ function TweetBox({ sendingTweet, setSendingTweet }) {
         };
 
         try {
-            const response = await fetch("http://localhost:3030/post", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(userPost),
-            });
+            const response = await fetch(
+                "https://giribabi-twitter-twin-api.onrender.com/post",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(userPost),
+                }
+            );
 
             const data = await response.json();
             console.log(data); // Optionally handle the response data
