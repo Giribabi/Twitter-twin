@@ -88,7 +88,7 @@
     bottom: 12vw;
 }
 .profile-body {
-    height: calc(100vh - 75px);
+    height: calc(100vh - 85px);
     overflow-y: scroll;
     scrollbar-width: none;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);

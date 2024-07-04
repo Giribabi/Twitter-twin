@@ -6,22 +6,33 @@ import "../Pages.css";
 import { Typography } from "@mui/material";
 
 function Explore() {
-    const [loading, setLoading] = useState(false);
+    const [loadingPosts, setLoadingPosts] = useState(false);
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        setLoading(true);
-        fetch("https://giribabi-twitter-twin-api.onrender.com/post")
-            .then((res) => res.json())
-            .then((data) => setPosts(data))
-            .catch((error) => console.log(error));
-        setLoading(false);
+        const fetchData = async () => {
+            try {
+                setLoadingPosts(true);
+                const response = await fetch(
+                    "https://giribabi-twitter-twin-api.onrender.com/post"
+                );
+                const data = await response.json();
+                setPosts(data);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoadingPosts(false);
+            }
+        };
+
+        fetchData();
     }, [posts.length]);
+
     return (
         <div>
             <div className="explore-posts">
                 <div className="posts-container">
-                    {loading ? (
+                    {loadingPosts ? (
                         <ReactLoading
                             type={"bubbles"}
                             color={"#50b7f5"}

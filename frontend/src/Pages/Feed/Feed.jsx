@@ -7,17 +7,29 @@ import "../Pages.css";
 import { Typography } from "@mui/material";
 
 function Feed() {
+    const [loadingPosts, setLoadingPosts] = useState(false);
     const [sendingTweet, setSendingTweet] = useState(false);
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        setSendingTweet(true);
-        fetch("https://giribabi-twitter-twin-api.onrender.com/post")
-            .then((res) => res.json())
-            .then((data) => setPosts(data))
-            .catch((error) => console.log(error));
-        setSendingTweet(false);
+        const fetchData = async () => {
+            try {
+                setLoadingPosts(true);
+                const response = await fetch(
+                    "https://giribabi-twitter-twin-api.onrender.com/post"
+                );
+                const data = await response.json();
+                setPosts(data);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setLoadingPosts(false);
+            }
+        };
+
+        fetchData();
     }, [posts.length]);
+
     return (
         <div className="feed-container">
             <TweetBox
@@ -26,7 +38,7 @@ function Feed() {
             />
             <div className="posts">
                 <div className="posts-container">
-                    {sendingTweet ? (
+                    {loadingPosts ? (
                         <ReactLoading
                             type={"bubbles"}
                             color={"#50b7f5"}

@@ -8,15 +8,21 @@ const useLoggedinUser = () => {
     const email = user[0]?.email;
     const [loggedinUser, setLoggedinUser] = useState({});
     useEffect(() => {
-        fetch(
-            `https://giribabi-twitter-twin-api.onrender.com/loggedUser?email=${email}`
-        )
-            .then((res) => res.json())
-            .then((data) => {
+        const fetchLoggedInUser = async () => {
+            try {
+                const response = await fetch(
+                    `https://giribabi-twitter-twin-api.onrender.com/loggedUser?email=${email}`
+                );
+                const data = await response.json();
                 setLoggedinUser(data);
-            })
-            .catch((error) => console.log(error));
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchLoggedInUser();
     }, [email]);
+
     return [loggedinUser, setLoggedinUser];
 };
 

@@ -97,7 +97,15 @@ function Sidebar({ handleLogout, user, closeDrawer }) {
                 />
             </StyledLink>
 
-            <Button className="sidebar-tweet">Tweet</Button>
+            <Button
+                className="sidebar-tweet"
+                onClick={() => {
+                    navigateToHome();
+                    closeDrawer();
+                }}
+            >
+                Tweet
+            </Button>
             <div className="profile-info">
                 <Avatar src={userProfilePic} />
                 <div className="user-info">

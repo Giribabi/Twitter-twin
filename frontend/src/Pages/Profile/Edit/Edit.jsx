@@ -10,14 +10,15 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
+import { isMobile } from "react-device-detect";
 
 const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 450,
-    height: 450,
+    width: isMobile ? 180 : 450,
+    height: isMobile ? 500 : 450,
     bgcolor: "background.paper",
     boxShadow: 24,
     borderRadius: 8,
@@ -40,7 +41,7 @@ function EditChild({ DOB, setDOB }) {
                 aria-labelledby="child-modal-title"
                 aria-describedby="child-modal-description"
             >
-                <Box sx={{ ...style, width: 300, height: 200 }}>
+                <Box sx={{ ...style }}>
                     <div className="text">
                         <h2>Edit date of birth?</h2>
                         <Typography>

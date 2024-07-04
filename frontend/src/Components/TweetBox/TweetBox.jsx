@@ -28,20 +28,25 @@ function TweetBox({ sendingTweet, setSendingTweet }) {
     const [alertMessage, setAlertMessage] = useState("");
 
     useEffect(() => {
-        if (user?.providerData[0]?.providerId === "password") {
-            fetch(
-                `https://giribabi-twitter-twin-api.onrender.com/loggedUser?email=${email}`
-            )
-                .then((res) => res.json())
-                .then((data) => {
+        const fetchUserData = async () => {
+            if (user?.providerData[0]?.providerId === "password") {
+                try {
+                    const response = await fetch(
+                        `https://giribabi-twitter-twin-api.onrender.com/loggedUser?email=${email}`
+                    );
+                    const data = await response.json();
                     setFullname(data[0]?.name || "");
                     setUsername(data[0]?.username || "");
-                })
-                .catch((error) => console.log(error));
-        } else {
-            setFullname(user?.displayName || "");
-            setUsername(email);
-        }
+                } catch (error) {
+                    console.log(error);
+                }
+            } else {
+                setFullname(user?.displayName || "");
+                setUsername(email);
+            }
+        };
+
+        fetchUserData();
     }, [email, user]);
 
     const handleTweet = async (e) => {
