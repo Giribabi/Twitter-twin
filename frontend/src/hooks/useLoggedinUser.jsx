@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../firebase.init";
-import Widgets from "../Components/Widgets/Widgets";
 
 const useLoggedinUser = () => {
     const user = useAuthState(auth);
@@ -13,7 +12,9 @@ const useLoggedinUser = () => {
                 const response = await fetch(
                     `https://giribabi-twitter-twin-api.onrender.com/loggedUser?email=${email}`
                 );
+
                 const data = await response.json();
+                // console.log(response);
                 setLoggedinUser(data);
             } catch (error) {
                 console.log(error);

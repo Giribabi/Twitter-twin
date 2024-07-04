@@ -19,8 +19,8 @@ function Login() {
         useSignInWithEmailAndPassword(auth);
     const [signInWithMicrosoft, googleUser, googleLoading, googleError] =
         useSignInWithGoogle(auth);
-    // if (googleUser) console.log(googleUser);
-    // if (googleError) console.log(googleError);
+    if (googleUser) console.log(googleUser);
+    if (googleError) console.log(googleError);
     const handleSubmit = (e) => {
         e.preventDefault();
         signInWithEmailAndPassword(email, password);

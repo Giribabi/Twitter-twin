@@ -58,7 +58,7 @@ function EditChild({ DOB, setDOB }) {
                                 className="cancel-changes-button"
                                 onClick={handleCloseModal}
                             >
-                                Cancel
+                                Ok
                             </Button>
                         </div>
                     </div>
@@ -80,7 +80,6 @@ function Edit({ loggedinUser }) {
     useEffect(() => {}, [loggedinUser]);
 
     const handleSave = async () => {
-        console.log("entered");
         const editedInfo = {
             name: name,
             bio: bio,
@@ -117,14 +116,14 @@ function Edit({ loggedinUser }) {
                             variant="h5"
                             className="edit-profile-heading"
                         >
-                            Edit Profile
+                            {isMobile ? "Edit" : "Edit Profile"}
                         </Typography>
                         <div className="modal-options">
                             <button
                                 className="save-profile-button"
                                 onClick={handleSave}
                             >
-                                Save Changes
+                                {isMobile ? "Save" : "Save Changes"}
                             </button>
                             <IconButton onClick={() => setOpenModal(false)}>
                                 <CloseIcon />
@@ -175,7 +174,9 @@ function Edit({ loggedinUser }) {
                     </form>
                     <div className="form-footer">
                         <div className="birthdate-section">
-                            <Typography variant="h6">Birth Date</Typography>
+                            <Typography variant="h6">
+                                {isMobile ? "DOB" : "Birth Date"}
+                            </Typography>
                             <EditChild DOB={DOB} setDOB={setDOB} />
                         </div>
                         <div className="rest-section">

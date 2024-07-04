@@ -10,6 +10,7 @@ function SideBarDrawer({ openDrawer, closeDrawer, handleLogout }) {
             <div>
                 <div
                     style={{
+                        width: "85vw",
                         display: "flex",
                         flexDirection: "row",
                         justifyContent: "flex-end",
