@@ -19,7 +19,6 @@ function Login() {
         useSignInWithEmailAndPassword(auth);
     const [signInWithMicrosoft, googleUser, googleLoading, googleError] =
         useSignInWithGoogle(auth);
-    if (googleUser) console.log(googleUser);
     if (googleError) console.log(googleError);
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -31,7 +30,7 @@ function Login() {
     if (user || googleUser) {
         navigate("/");
     }
-    // if (error) console.log(error);
+    if (error) console.log(error);
     //use loading property to showing loader
     return (
         <div className="">
