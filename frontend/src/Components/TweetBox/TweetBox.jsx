@@ -35,7 +35,7 @@ function TweetBox({
         const fetchUserData = async () => {
             try {
                 const response = await fetch(
-                    `http://localhost:3030/loggedUser?email=${email}`
+                    `https://giribabi-twitter-twin-api.onrender.com/loggedUser?email=${email}`
                 );
                 const data = await response.json();
                 // console.log(data);
@@ -52,7 +52,9 @@ function TweetBox({
     const fetchData = async () => {
         try {
             setLoadingPosts(true);
-            const response = await fetch("http://localhost:3030/post");
+            const response = await fetch(
+                "https://giribabi-twitter-twin-api.onrender.com/post"
+            );
             const data = await response.json();
             setPosts(data);
         } catch (error) {
@@ -77,7 +79,7 @@ function TweetBox({
         };
 
         try {
-            await fetch("http://localhost:3030/post", {
+            await fetch("https://giribabi-twitter-twin-api.onrender.com/post", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

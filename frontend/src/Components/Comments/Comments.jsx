@@ -31,7 +31,7 @@ function Comments({ currPost }) {
             setFetchingComments(true);
             try {
                 const { data } = await axios.post(
-                    `http://localhost:3030/posts/${postId}/all-comments`
+                    `https://giribabi-twitter-twin-api.onrender.com/posts/${postId}/all-comments`
                 );
                 setComments(data);
             } catch (error) {
@@ -51,7 +51,7 @@ function Comments({ currPost }) {
                     postId,
                 };
                 await axios.post(
-                    `http://localhost:3030/posts/${postId}/comment`,
+                    `https://giribabi-twitter-twin-api.onrender.com/posts/${postId}/comment`,
                     comment
                 );
                 fetchComments();

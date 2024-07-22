@@ -52,10 +52,13 @@ function Post({ currPost, setNewPost }) {
         // updating the UI beforehand
         const postId = currPost._id;
         try {
-            await axios.post(`http://localhost:3030/posts/${postId}/like`, {
-                liked: liked,
-                email,
-            });
+            await axios.post(
+                `https://giribabi-twitter-twin-api.onrender.com/posts/${postId}/like`,
+                {
+                    liked: liked,
+                    email,
+                }
+            );
             setLiked((liked) => !liked);
             setCurrLikes(liked ? likes - 1 : likes + 1);
         } catch (error) {

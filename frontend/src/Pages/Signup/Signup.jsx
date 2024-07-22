@@ -41,7 +41,10 @@ function Signup() {
                 email: email,
             };
 
-            await axios.post("http://localhost:3030/register", user);
+            await axios.post(
+                "https://giribabi-twitter-twin-api.onrender.com/register",
+                user
+            );
         } catch (error) {
             console.error("Error creating user or registering:", error);
         }
@@ -54,7 +57,7 @@ function Signup() {
                 email: googleUser.user.email,
             };
             const { data } = await axios.post(
-                "http://localhost:3030/register",
+                "https://giribabi-twitter-twin-api.onrender.com/register",
                 user
             );
             console.log(data);

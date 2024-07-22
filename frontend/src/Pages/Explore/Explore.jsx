@@ -13,7 +13,9 @@ function Explore() {
         const fetchData = async () => {
             try {
                 setLoadingPosts(true);
-                const response = await fetch("http://localhost:3030/post");
+                const response = await fetch(
+                    "https://giribabi-twitter-twin-api.onrender.com/post"
+                );
                 const data = await response.json();
                 setPosts(data);
             } catch (error) {

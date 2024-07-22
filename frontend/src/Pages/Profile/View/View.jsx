@@ -30,7 +30,7 @@ function View({ user }) {
             setPostsLoading(true);
             try {
                 const response = await fetch(
-                    `http://localhost:3030/myPosts?email=${user[0]?.email}`
+                    `https://giribabi-twitter-twin-api.onrender.com/myPosts?email=${user[0]?.email}`
                 );
                 const data = await response.json();
                 setPosts(data);
@@ -75,7 +75,7 @@ function View({ user }) {
 
                 try {
                     await axios.patch(
-                        `http://localhost:3030/profile/update/${user[0]?.email}`,
+                        `https://giribabi-twitter-twin-api.onrender.com/profile/update/${user[0]?.email}`,
                         userCoverImage
                     );
                 } catch (updateError) {
@@ -116,7 +116,7 @@ function View({ user }) {
 
                 try {
                     await axios.patch(
-                        `http://localhost:3030/profile/update/${user[0]?.email}`,
+                        `https://giribabi-twitter-twin-api.onrender.com/profile/update/${user[0]?.email}`,
                         userProfileImage
                     );
                 } catch (updateError) {

@@ -10,7 +10,7 @@ const useLoggedinUser = () => {
         const fetchLoggedInUser = async () => {
             try {
                 const response = await fetch(
-                    `http://localhost:3030/loggedUser?email=${email}`
+                    `https://giribabi-twitter-twin-api.onrender.com/loggedUser?email=${email}`
                 );
                 const data = await response.json();
                 // console.log(data);

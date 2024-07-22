@@ -35,7 +35,7 @@ function Login() {
                 email: googleUser.user.email,
             };
             const { data } = await axios.post(
-                "http://localhost:3030/register",
+                "https://giribabi-twitter-twin-api.onrender.com/register",
                 user
             );
             console.log(data);
