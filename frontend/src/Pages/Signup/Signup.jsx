@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     useCreateUserWithEmailAndPassword,
     useSignInWithGoogle,
@@ -10,12 +10,15 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Signup.css";
 import LoadingPage from "../LoadingPage";
 import axios from "axios";
+import AlertMessage from "../../Components/AlertMessage/AlertMessage";
 
 function Signup() {
     const [fullName, setFullName] = useState("");
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [alertError, setAlertError] = useState("");
+    const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     //const [error, setError] = useState("")
     const [createUserWithEmailAndPassword, user, loading, error] =
@@ -32,28 +35,50 @@ function Signup() {
 
         try {
             await createUserWithEmailAndPassword(email, password);
-
             const user = {
                 username: username,
                 name: fullName,
                 email: email,
             };
 
-            await axios.post(
-                "https://giribabi-twitter-twin-api.onrender.com/register",
-                user
-            );
+            await axios.post("http://localhost:3030/register", user);
         } catch (error) {
             console.error("Error creating user or registering:", error);
+        }
+    };
+
+    const registerUser = async () => {
+        try {
+            const user = {
+                name: googleUser.user.displayName,
+                email: googleUser.user.email,
+            };
+            const { data } = await axios.post(
+                "http://localhost:3030/register",
+                user
+            );
+            console.log(data);
+        } catch (error) {
+            console.log(error);
         }
     };
 
     const handleGoogleSignin = () => {
         signInWithMicrosoft();
     };
-    if (user || googleUser) {
-        navigate("/");
-    }
+
+    useEffect(() => {
+        if (error) {
+            setAlertError("User exists with this email");
+            setOpen(true);
+        }
+        if (user || googleUser) {
+            if (googleUser) {
+                registerUser();
+            }
+            navigate("/");
+        }
+    }, [error, user, googleUser]);
 
     return (
         <div className="">
@@ -62,7 +87,11 @@ function Signup() {
             ) : (
                 <div className="signup-container">
                     <div className="logo-image-container">
-                        <img src={AppLogo} alt="login-logo" />
+                        <img
+                            src={AppLogo}
+                            alt="login-logo"
+                            className="logo-image"
+                        />
                     </div>
                     <div className="form-container">
                         <div className="auth-heading">Happening now</div>
@@ -139,6 +168,12 @@ function Signup() {
                     </div>
                 </div>
             )}
+            <AlertMessage
+                open={open}
+                setOpen={setOpen}
+                message={alertError}
+                type={"error"}
+            />
         </div>
     );
 }

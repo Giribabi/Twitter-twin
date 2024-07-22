@@ -9,12 +9,12 @@ import GoogleButton from "react-google-button";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingPage from "../LoadingPage";
 import "./Login.css";
+import axios from "axios";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    //const [error, setError] = useState("")
     const [signInWithEmailAndPassword, user, loading, error] =
         useSignInWithEmailAndPassword(auth);
     const [signInWithMicrosoft, googleUser, googleLoading, googleError] =
@@ -27,10 +27,32 @@ function Login() {
     const handleGoogleSignin = () => {
         signInWithMicrosoft();
     };
-    if (user || googleUser) {
-        navigate("/");
-    }
-    if (error) console.log(error);
+
+    const registerUser = async () => {
+        try {
+            const user = {
+                name: googleUser.user.displayName,
+                email: googleUser.user.email,
+            };
+            const { data } = await axios.post(
+                "http://localhost:3030/register",
+                user
+            );
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        if (user || googleUser) {
+            if (googleUser) {
+                registerUser();
+            }
+            navigate("/");
+        }
+        if (error) console.log(error);
+    }, [user, googleUser]);
     //use loading property to showing loader
     return (
         <div className="">

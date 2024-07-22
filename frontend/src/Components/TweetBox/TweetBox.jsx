@@ -9,7 +9,13 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import useLoggedinUser from "../../hooks/useLoggedinUser";
 
-function TweetBox({ sendingTweet, setSendingTweet }) {
+function TweetBox({
+    newPost,
+    sendingTweet,
+    setSendingTweet,
+    setPosts,
+    setLoadingPosts,
+}) {
     const [user] = useAuthState(auth);
     const [loggedinUser] = useLoggedinUser();
     const userProfilePic = loggedinUser[0]?.profileImage || "";
@@ -25,34 +31,40 @@ function TweetBox({ sendingTweet, setSendingTweet }) {
     const [isImageUploaded, setIsImageUploaded] = useState(false);
     const [imageUploadFailed, setImageUploadFailed] = useState(false);
 
-    const [alertMessage, setAlertMessage] = useState("");
-
     useEffect(() => {
         const fetchUserData = async () => {
-            if (user?.providerData[0]?.providerId === "password") {
-                try {
-                    const response = await fetch(
-                        `https://giribabi-twitter-twin-api.onrender.com/loggedUser?email=${email}`
-                    );
-                    const data = await response.json();
-                    setFullname(data[0]?.name || "");
-                    setUsername(data[0]?.username || "");
-                } catch (error) {
-                    console.log(error);
-                }
-            } else {
-                setFullname(user?.displayName || "");
-                setUsername(email);
+            try {
+                const response = await fetch(
+                    `http://localhost:3030/loggedUser?email=${email}`
+                );
+                const data = await response.json();
+                // console.log(data);
+                setFullname(data[0]?.name || "Guest User");
+                setUsername(data[0]?.username || "guest");
+            } catch (error) {
+                console.log(error);
             }
         };
 
         fetchUserData();
     }, [email, user]);
 
+    const fetchData = async () => {
+        try {
+            setLoadingPosts(true);
+            const response = await fetch("http://localhost:3030/post");
+            const data = await response.json();
+            setPosts(data);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoadingPosts(false);
+        }
+    };
+
     const handleTweet = async (e) => {
         e.preventDefault();
         setSendingTweet(true);
-        console.log(sendingTweet); // This will still log the previous state due to the asynchronous nature of setState
 
         const userPost = {
             profilePhoto: userProfilePic,
@@ -61,29 +73,27 @@ function TweetBox({ sendingTweet, setSendingTweet }) {
             email: email,
             post: post,
             photo: imageURL,
+            likes: [],
         };
 
         try {
-            const response = await fetch(
-                "https://giribabi-twitter-twin-api.onrender.com/post",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(userPost),
-                }
-            );
-
-            const data = await response.json();
-            console.log(data); // Optionally handle the response data
+            await fetch("http://localhost:3030/post", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userPost),
+            });
+            fetchData();
+            // console.log(data);
         } catch (error) {
             console.error("Error posting tweet:", error);
         } finally {
             setPost("");
             setImageURL("");
             setSendingTweet(false);
-            console.log(sendingTweet); // This will log the state after it has been updated
+            // console.log(sendingTweet);
+            // This will log the state after it has been updated
         }
     };
 
@@ -116,6 +126,14 @@ function TweetBox({ sendingTweet, setSendingTweet }) {
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        if (newPost) {
+            // console.log(newPost);
+            setPost(newPost.post);
+            setImageURL(newPost.photo);
+        }
+    }, [newPost]);
 
     return (
         <div className="tweetBox">
@@ -155,7 +173,10 @@ function TweetBox({ sendingTweet, setSendingTweet }) {
                                 />
                             ) : (
                                 <AddPhotoAlternateIconOutlined
-                                    style={{ padding: "8px" }}
+                                    style={{
+                                        padding: "8px",
+                                        cursor: "pointer",
+                                    }}
                                 />
                             )}
                         </label>

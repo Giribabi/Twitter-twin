@@ -10,14 +10,13 @@ function Feed() {
     const [loadingPosts, setLoadingPosts] = useState(false);
     const [sendingTweet, setSendingTweet] = useState(false);
     const [posts, setPosts] = useState([]);
+    const [newPost, setNewPost] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoadingPosts(true);
-                const response = await fetch(
-                    "https://giribabi-twitter-twin-api.onrender.com/post"
-                );
+                const response = await fetch("http://localhost:3030/post");
                 const data = await response.json();
                 setPosts(data);
             } catch (error) {
@@ -33,8 +32,11 @@ function Feed() {
     return (
         <div className="feed-container">
             <TweetBox
+                newPost={newPost}
                 sendingTweet={sendingTweet}
                 setSendingTweet={setSendingTweet}
+                setPosts={setPosts}
+                setLoadingPosts={setLoadingPosts}
             />
             <div className="posts">
                 <div className="posts-container">
@@ -48,15 +50,21 @@ function Feed() {
                     ) : (
                         <>
                             {posts &&
-                                posts.map((currPost) => (
-                                    <>
+                                posts.map((currPost, index) => (
+                                    <div
+                                        className="single-post-box"
+                                        key={currPost._id + index}
+                                    >
                                         <div
                                             className="single-post"
                                             key={currPost._id}
                                         >
-                                            <Post currPost={currPost} />
+                                            <Post
+                                                setNewPost={setNewPost}
+                                                currPost={currPost}
+                                            />
                                         </div>
-                                    </>
+                                    </div>
                                 ))}
                             {posts && posts.length === 0 && (
                                 <div className="no-posts-container">

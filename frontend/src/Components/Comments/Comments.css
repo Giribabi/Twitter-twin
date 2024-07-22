@@ -1,0 +1,56 @@
+.comments-box {
+    padding: 5px 10px;
+    background-color: #e6e6e6;
+    border-radius: 5px;
+    margin: 2px;
+    max-height: 125px;
+    overflow-y: scroll;
+}
+.single-comment {
+    padding: 5px;
+    border-bottom: 1px solid darkgrey;
+}
+.comments-loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px;
+}
+.send-comment-button {
+    padding: 0px !important;
+    background-color: var(--twitter-color) !important;
+    text-transform: none !important;
+    position: relative;
+    bottom: 60px;
+}
+.send-comment-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.comment-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.comment-body {
+    padding: 4px;
+}
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+    border: 2px solid #f1f1f1;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

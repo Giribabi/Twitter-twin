@@ -11,6 +11,7 @@
     display: flex;
     flex-direction: row;
 }
+
 .logo-image-container,
 .form-container {
     width: 50vw;
@@ -53,6 +54,7 @@
     width: 100%;
     padding: 1.5vh 20%;
     background-color: white;
+    cursor: pointer;
 }
 .input-container > .google-button {
     position: relative;

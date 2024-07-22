@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const cors = require("cors");
+const mongoose = require("mongoose");
 const PORT = process.env.PORT || 3030;
 
 app.use(
@@ -12,6 +13,7 @@ app.use(
 );
 
 app.use(express.json());
+const ObjectId = mongoose.Types.ObjectId;
 
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.sgucunb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
@@ -30,6 +32,7 @@ async function run() {
         await client.connect();
         const postsCollection = client.db("database").collection("posts");
         const usersCollection = client.db("database").collection("users");
+        const commentsCollection = client.db("database").collection("comments");
 
         console.log("You successfully connected to MongoDB!");
 
@@ -61,15 +64,81 @@ async function run() {
         //post
         app.post("/post", async (req, res) => {
             const post = req.body;
+            post.createdAt = new Date();
             const result = await postsCollection.insertOne(post);
             res.send(result);
         });
 
+        app.post("/posts/:id/all-comments", async (req, res) => {
+            try {
+                const { id } = req.params;
+                const result = (
+                    await commentsCollection.find({ postId: id }).toArray()
+                ).reverse();
+                res.status(200).send(result);
+            } catch (error) {
+                console.error("Error posting comment:", error);
+                res.status(500).json({ message: "Server error" });
+            }
+        });
+
+        app.post("/posts/:id/comment", async (req, res) => {
+            try {
+                const comment = req.body;
+                comment.createdAt = new Date();
+                const result = await commentsCollection.insertOne(comment);
+                res.status(200).send(result);
+            } catch (error) {
+                console.error("Error posting comment:", error);
+                res.status(500).json({ message: "Server error" });
+            }
+        });
+
+        app.post("/posts/:id/like", async (req, res) => {
+            try {
+                const post = await postsCollection.findOne({
+                    _id: new ObjectId(req.params.id),
+                });
+                if (!post) {
+                    return res.status(404).send("Post not found");
+                }
+
+                const { email } = req.body;
+                const user = usersCollection.findOne({ email });
+                if (!user) {
+                    return res.status(404).send("Invalid User");
+                }
+                const updateQuery = req.body.liked
+                    ? { $addToSet: { likes: email } } // add the user's like
+                    : { $pull: { likes: email } }; // remove the user's like
+
+                const updatedPost = await postsCollection.findOneAndUpdate(
+                    { _id: new ObjectId(req.params.id) },
+                    updateQuery,
+                    { new: true }
+                );
+
+                res.status(200).send(updatedPost);
+            } catch (error) {
+                console.error("Error liking the post:", error);
+                res.status(500).send("Server error");
+            }
+        });
+
         //register user
         app.post("/register", async (req, res) => {
-            const user = req.body;
-            const result = await usersCollection.insertOne(user);
-            res.send(result);
+            try {
+                const user = req.body;
+                const { email } = user;
+                const userExists = await usersCollection.findOne({ email });
+                if (userExists) {
+                    res.status(400).send("User exists");
+                }
+                const result = await usersCollection.insertOne(user);
+                res.send(result);
+            } catch (error) {
+                console.log(error);
+            }
         });
 
         //patch

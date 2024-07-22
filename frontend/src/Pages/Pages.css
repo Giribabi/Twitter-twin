@@ -31,6 +31,9 @@
 .explore-posts {
     height: calc(100vh - 15px);
 }
+.single-post-box {
+    width: 100%;
+}
 .single-post {
     width: 100%;
 }

@@ -32,6 +32,11 @@
 .username {
     color: rgb(55, 55, 55);
 }
+.date-time {
+    display: flex;
+    flex-direction: row;
+    padding: 2px;
+}
 .post-header-body {
     padding: 5px;
 }
@@ -62,5 +67,10 @@
     margin: 5px;
 }
 .reaction-icons {
+    cursor: pointer;
+}
+.comment-dropdown-icon {
+    position: relative;
+    top: 2px;
     cursor: pointer;
 }

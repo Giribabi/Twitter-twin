@@ -29,7 +29,7 @@ function Sidebar({ handleLogout, user, closeDrawer }) {
     const [loggedinUser] = useLoggedinUser();
 
     const fullName = loggedinUser[0]?.name ?? "Guest User";
-    const username = loggedinUser[0]?.username ?? "Guest User";
+    const username = loggedinUser[0]?.username ?? "guest";
     const userProfilePic = loggedinUser[0]?.profileImage || "";
 
     const [openMenu, setOpenMenu] = useState(false);

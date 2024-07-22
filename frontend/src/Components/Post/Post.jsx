@@ -1,15 +1,82 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Typography } from "@mui/material";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import RepeatIcon from "@mui/icons-material/Repeat";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardControlKeyIcon from "@mui/icons-material/KeyboardControlKey";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import PublishIcon from "@mui/icons-material/Publish";
-
+import axios from "axios";
+import Comments from "../Comments/Comments";
 import "./Post.css";
 
-function Post({ currPost }) {
-    const { fullname, username, profilePhoto, photo, post } = currPost;
+function Post({ currPost, setNewPost }) {
+    const {
+        fullname,
+        username,
+        profilePhoto,
+        photo,
+        post,
+        likes,
+        email,
+        createdAt,
+    } = currPost;
+    const [currLikes, setCurrLikes] = useState(0);
+    const [liked, setLiked] = useState(false);
+    const [showComments, setShowComments] = useState(false);
+
+    const formatDate = (rawDate) => {
+        const date = new Date(rawDate);
+        const options = {
+            timeZone: "Asia/Kolkata",
+            month: "long",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+        };
+        const ISTdateTime = date.toLocaleString("en-US", options);
+        return ISTdateTime;
+    };
+
+    const toggleShowComments = () => {
+        setShowComments((showComments) => !showComments);
+    };
+
+    const rePost = (currPost) => {
+        setNewPost(currPost);
+    };
+
+    const handleLike = async () => {
+        // updating the UI beforehand
+        const postId = currPost._id;
+        try {
+            await axios.post(`http://localhost:3030/posts/${postId}/like`, {
+                liked: liked,
+                email,
+            });
+            setLiked((liked) => !liked);
+            setCurrLikes(liked ? likes - 1 : likes + 1);
+        } catch (error) {
+            console.error("Error liking the post", error);
+        }
+    };
+
+    const checkoutLikes = () => {
+        console.log(likes);
+        if (likes && likes.length) {
+            console.log(likes);
+            if (likes.includes(email)) {
+                setLiked(true);
+            }
+            setCurrLikes(likes.length);
+        }
+    };
+
+    useEffect(() => {
+        checkoutLikes();
+    }, [liked]);
 
     return (
         <>
@@ -44,24 +111,54 @@ function Post({ currPost }) {
                             />
                         </div>
                     )}
+                    <div className="date-time">{formatDate(createdAt)}</div>
                     <div className="post-footer">
-                        <ChatBubbleOutlineIcon
-                            className="reaction-icons"
-                            fontSize="small"
-                        />
-                        <RepeatIcon
-                            className="reaction-icons"
-                            fontSize="small"
-                        />
-                        <FavoriteBorderIcon
-                            className="reaction-icons"
-                            fontSize="small"
-                        />
-                        <PublishIcon
-                            className="reaction-icons"
-                            fontSize="small"
-                        />
+                        <div onClick={toggleShowComments}>
+                            <ChatBubbleOutlineIcon
+                                className="reaction-icons"
+                                fontSize="small"
+                            />
+                            {showComments ? (
+                                <KeyboardControlKeyIcon className="comment-dropdown-icon" />
+                            ) : (
+                                <KeyboardArrowDownIcon className="comment-dropdown-icon" />
+                            )}
+                        </div>
+                        <div onClick={() => rePost(currPost)}>
+                            <RepeatIcon
+                                className="reaction-icons"
+                                fontSize="small"
+                            />
+                        </div>
+
+                        <div className="" onClick={handleLike}>
+                            {liked ? (
+                                <FavoriteIcon
+                                    className="reaction-icons"
+                                    fontSize="small"
+                                    style={{ color: "red" }}
+                                />
+                            ) : (
+                                <FavoriteBorderIcon
+                                    className="reaction-icons"
+                                    fontSize="small"
+                                />
+                            )}
+                            <span
+                                style={{
+                                    width: "20px",
+                                    display: "inline-block",
+                                    position: "relative",
+                                    bottom: "3px",
+                                }}
+                            >
+                                {currLikes && currLikes.length > 0
+                                    ? currLikes.length + " "
+                                    : "0 "}
+                            </span>
+                        </div>
                     </div>
+                    {showComments && <Comments currPost={currPost} />}
                 </div>
             </div>
         </>
